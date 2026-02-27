@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MathExcel — Connexion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #6C3FC5;
+      --purple-light: #8B62D9;
+      --purple-dark: #4A2A8F;
+      --purple-glow: rgba(108, 63, 197, 0.3);
+      --gold: #F5C842;
+      --bg: #0E0B1A;
+      --surface: #16112A;
+      --surface2: #1E1735;
+      --text: #F0EBF8;
+      --text-muted: #9B8FBB;
+      --border: rgba(108, 63, 197, 0.25);
+      --radius: 16px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated background */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 8s ease-in-out infinite;
+    }
+    .orb-1 { width: 400px; height: 400px; background: var(--purple); top: -100px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 300px; height: 300px; background: #2A1F6F; bottom: -80px; right: -80px; animation-delay: 3s; }
+    .orb-3 { width: 200px; height: 200px; background: var(--gold); top: 50%; right: 10%; opacity: 0.15; animation-delay: 1.5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+
+    /* Grid pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(108,63,197,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108,63,197,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      padding: 24px;
+    }
+
+    /* Logo */
+    .logo {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .logo-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      color: white;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 32px var(--purple-glow);
+    }
+    .logo-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, var(--purple-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .card-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+    .field input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input:focus {
+      border-color: var(--purple-light);
+      box-shadow: 0 0 0 3px var(--purple-glow);
+    }
+    .field input::placeholder { color: var(--text-muted); }
+
+    .error-msg {
+      display: none;
+      background: rgba(220, 60, 60, 0.12);
+      border: 1px solid rgba(220, 60, 60, 0.3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #ff7070;
+      margin-bottom: 20px;
+    }
+    .error-msg.show { display: block; }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      box-shadow: 0 4px 20px var(--purple-glow);
+      letter-spacing: 0.3px;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px var(--purple-glow); }
+    .btn:active { transform: translateY(0); }
+
+    .divider {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 24px 0 16px;
+    }
+
+    .hint {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .hint strong { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <div class="logo">
+      <div class="logo-icon">M∑</div>
+      <div class="logo-title">MathExcel</div>
+      <div class="logo-sub">Accompagnement Spé Maths Terminale</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Accès à ton espace</div>
+      <div class="card-sub">Entre tes identifiants pour accéder à ton programme personnalisé.</div>
+
+      <div class="error-msg" id="errorMsg">
+        Identifiants incorrects. Vérifie ton email et ton mot de passe.
+      </div>
+
+      <div class="field">
+        <label>Adresse email</label>
+        <input type="email" id="emailInput" placeholder="prenom@email.com" />
+      </div>
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" id="passInput" placeholder="••••••••" />
+      </div>
+
+      <button class="btn" onclick="login()">Accéder à mon espace →</button>
+
+      <div class="divider">— ou —</div>
+      <div class="hint">
+        Première connexion ? <strong>Contacte ton coach</strong> pour recevoir tes identifiants personnels.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Student database — à modifier avec tes vrais élèves
+    const STUDENTS = {
+      "thomas.dupont@email.com": { password: "maths2024", name: "Thomas", id: "thomas" },
+      "lea.martin@email.com":    { password: "maths2024", name: "Léa",    id: "lea"    },
+      "hugo.bernard@email.com":  { password: "maths2024", name: "Hugo",   id: "hugo"   },
+    };
+
+    function login() {
+      const email = document.getElementById('emailInput').value.trim().toLowerCase();
+      const pass  = document.getElementById('passInput').value;
+      const err   = document.getElementById('errorMsg');
+
+      const student = STUDENTS[email];
+      if (student && student.password === pass) {
+        // Store session
+        sessionStorage.setItem('student', JSON.stringify(student));
+        window.location.href = 'dashboard.html';
+      } else {
+        err.classList.add('show');
+        document.getElementById('passInput').value = '';
+      }
+    }
+
+    // Enter key support
+    document.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+  </script>
+</body>
+</html>
