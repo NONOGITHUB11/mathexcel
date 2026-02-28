@@ -328,10 +328,11 @@ const now=new Date(), ws=new Date(now);
 ws.setDate(now.getDate()-((now.getDay()+6)%7));
 document.getElementById('weekBadge').textContent=`Semaine du ${ws.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})}`;
 
-// STATE
+// STATE — loaded from data.json on GitHub (same repo as this site)
+let _adminCache = null;
+
 function getAdmin(){
-  const d=JSON.parse(localStorage.getItem('mathexcel_admin_state')||'null');
-  return d||{agendaUrl:'',meetTitle:'',meetDate:'',meetUrl:'',weekPlan:[
+  return _adminCache || {agendaUrl:'',meetTitle:'',meetDate:'',meetUrl:'',weekPlan:[
     {day:'LUN',tasks:[]},{day:'MAR',tasks:[{text:'Vidéo du cours',type:'cours'}]},
     {day:'MER',tasks:[{text:'Exercices niv.1',type:'exo'}]},{day:'JEU',tasks:[{text:'Révision fiche',type:'revise'}]},
     {day:'VEN',tasks:[{text:'Exercices niv.2',type:'exo'}]},{day:'SAM',tasks:[{text:'Cours 14h-15h30',type:'cours'}]},
@@ -351,6 +352,18 @@ function getAdmin(){
     {num:12,name:'Algorithmique Python',meta:'Fiche · Vidéo · Exercices',status:'locked',fiche:'',video:'',exercices:''},
   ],objectives:[],message:{title:'',body:'',cta:''},evals:[]};
 }
+
+// Fetch data.json directly from GitHub (public raw URL — no token needed for reading)
+async function loadAdminData(){
+  try{
+    // data.json is in the same repo, served by Vercel at /data.json
+    const r = await fetch('/data.json?_='+Date.now());
+    if(!r.ok) throw new Error('not found');
+    _adminCache = await r.json();
+  } catch(e){
+    console.warn('Could not load data.json:', e.message);
+  }
+}
 const SK=`mathexcel_student_${student?.email||'x'}`;
 function getSd(){ return JSON.parse(localStorage.getItem(SK)||'null')||{calUrl:'',evals:[],personalObjs:[],objDone:{}}; }
 function saveSd(d){ localStorage.setItem(SK,JSON.stringify(d)); }
@@ -366,7 +379,7 @@ function openUrl(u){ if(u&&u!='#') window.open(u,'_blank'); else toast('Lien non
 
 // PANEL NAV
 const META={dashboard:{title:'Tableau de bord',sub:'Bienvenue '+student?.name+' 🎯'},cours:{title:'Mes cours',sub:'Programme Terminale Spé Maths'},replays:{title:'Replays',sub:'Séances enregistrées'},evals:{title:'Mes évaluations',sub:'Ajoute tes notes et suis ta progression'},agenda:{title:'Mon agenda',sub:'Ton planning et ta prochaine séance'},objectifs:{title:'Objectifs',sub:'Tâches de la semaine'}};
-function showPanel(id,el){
+async function showPanel(id,el){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('panel-'+id).classList.add('active');
@@ -533,8 +546,11 @@ function delObj(key){
   saveSd(sd); renderObjectifs(); toast('✓ Supprimé');
 }
 
-// INIT
-renderDash();
+// INIT — load fresh data from data.json then render
+(async function(){
+  await loadAdminData();
+  renderDash();
+})();
 </script>
 </body>
 </html>
