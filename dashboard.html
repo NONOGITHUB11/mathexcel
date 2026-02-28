@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Spé Math Excellence — Mon Espace</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--p:#6C3FC5;--pl:#8B62D9;--pd:#4A2A8F;--glow:rgba(108,63,197,.25);--gold:#F5C842;--green:#2ECC8A;--red:#FF6B6B;--blue:#4FC3F7;--bg:#0E0B1A;--s1:#16112A;--s2:#1E1735;--s3:#251E3E;--tx:#F0EBF8;--mu:#9B8FBB;--br:rgba(108,63,197,.2);--r:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(108,63,197,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(108,63,197,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+
+/* SIDEBAR */
+.sb{position:fixed;top:0;left:0;width:240px;height:100vh;background:var(--s1);border-right:1px solid var(--br);display:flex;flex-direction:column;padding:24px 0;z-index:10}
+.sb-logo{padding:0 20px 24px;border-bottom:1px solid var(--br)}
+.sb-badge{width:36px;height:36px;background:linear-gradient(135deg,var(--p),var(--pl));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+.sb-name{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-by{font-size:10px;color:var(--mu)}
+.sb-by span{color:var(--gold)}
+.sb-logo-row{display:flex;align-items:center;gap:10px}
+.nav{flex:1;padding:16px 10px;display:flex;flex-direction:column;gap:2px}
+.nav-sec{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mu);text-transform:uppercase;padding:14px 12px 5px}
+.nav-a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:500;color:var(--mu);transition:all .15s;border:1px solid transparent;text-decoration:none}
+.nav-a:hover{background:var(--s2);color:var(--tx)}
+.nav-a.on{background:linear-gradient(135deg,rgba(108,63,197,.25),rgba(139,98,217,.15));color:var(--tx);border-color:var(--br)}
+.nav-a .ic{font-size:16px;width:20px;text-align:center}
+.sb-bot{padding:16px 10px 0;border-top:1px solid var(--br);margin:0 10px}
+.stu-card{display:flex;align-items:center;gap:10px;padding:10px;background:var(--s2);border-radius:10px;border:1px solid var(--br)}
+.stu-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:#fff;flex-shrink:0}
+.stu-info{flex:1;min-width:0}
+.stu-nm{font-size:13px;font-weight:600}
+.stu-rl{font-size:11px;color:var(--mu)}
+.out-btn{background:none;border:none;color:var(--mu);cursor:pointer;font-size:16px;padding:4px;border-radius:6px;transition:color .15s}
+.out-btn:hover{color:var(--red)}
+
+/* MAIN */
+.main{margin-left:240px;min-height:100vh;position:relative;z-index:1}
+.topbar{padding:20px 28px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;background:rgba(14,11,26,.85);backdrop-filter:blur(12px);position:sticky;top:0;z-index:5}
+.topbar h1{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.topbar p{font-size:13px;color:var(--mu);margin-top:2px}
+.wb{background:linear-gradient(135deg,var(--pd),var(--p));border:1px solid var(--br);border-radius:10px;padding:7px 14px;font-size:13px;font-weight:500}
+
+/* PANELS */
+.panel{display:none}.panel.on{display:block}
+.pg{padding:28px}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:18px;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat.c1::before{background:linear-gradient(90deg,var(--p),var(--pl))}
+.stat.c2::before{background:linear-gradient(90deg,var(--gold),#ffaa00)}
+.stat.c3::before{background:linear-gradient(90deg,var(--green),#00d4aa)}
+.stat.c4::before{background:linear-gradient(90deg,var(--blue),#0080c0)}
+.sl{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--mu);text-transform:uppercase}
+.sv{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin:7px 0 3px}
+.ss{font-size:12px;color:var(--mu)}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.g32{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:18px}
+
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:22px;margin-bottom:18px}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ctit{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+.cact{font-size:12px;color:var(--pl);cursor:pointer;background:none;border:none}
+.cact:hover{text-decoration:underline}
+
+/* WEEK */
+.wp{display:flex;flex-direction:column;gap:7px}
+.dr{display:flex;align-items:flex-start;gap:10px;padding:10px;background:var(--s2);border-radius:9px;border:1px solid transparent}
+.dr.today{border-color:var(--p);background:rgba(108,63,197,.08)}
+.dl{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;width:30px;flex-shrink:0;padding-top:2px}
+.dr.today .dl{color:var(--pl)}
+.dt{flex:1;display:flex;flex-wrap:wrap;gap:4px}
+.tp{display:inline-flex;align-items:center;gap:5px;border-radius:5px;padding:3px 9px;font-size:12px}
+.tp.cours{background:rgba(108,63,197,.2);color:var(--pl)}
+.tp.exo{background:rgba(46,204,138,.15);color:var(--green)}
+.tp.revise{background:rgba(245,200,66,.15);color:var(--gold)}
+.tp .d{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+/* CHAPTERS */
+.cl{display:flex;flex-direction:column;gap:7px}
+.ci{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--s2);border-radius:11px;border:1px solid var(--br);cursor:pointer;transition:all .15s;color:var(--tx)}
+.ci:hover:not(.lk){background:var(--s3);border-color:var(--p);transform:translateX(3px)}
+.ci.lk{opacity:.5;cursor:default}
+.cn{width:34px;height:34px;background:linear-gradient(135deg,var(--pd),var(--p));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.ci-info{flex:1}
+.ci-name{font-size:14px;font-weight:600;margin-bottom:1px}
+.ci-meta{font-size:12px;color:var(--mu)}
+.cst{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+.s-done{background:rgba(46,204,138,.15);color:var(--green)}
+.s-cur{background:rgba(108,63,197,.2);color:var(--pl)}
+.s-lk{background:var(--s3);color:var(--mu)}
+
+/* CHAPTER DETAIL */
+.det-back{display:inline-flex;align-items:center;gap:7px;color:var(--mu);font-size:14px;cursor:pointer;background:none;border:none;margin-bottom:18px;transition:color .15s}
+.det-back:hover{color:var(--tx)}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.res-card{background:var(--s2);border:1px solid var(--br);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .15s}
+.res-card:hover:not(.dis){border-color:var(--pl);background:var(--s3)}
+.res-card.dis{opacity:.4;cursor:default}
+.ri{font-size:26px;margin-bottom:7px}
+.rl{font-size:13px;font-weight:600}
+.rs{font-size:11px;color:var(--mu);margin-top:3px}
+
+/* PROGRESS */
+.pb-wrap{margin-top:6px}
+.pb-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-bottom:5px}
+.pb{height:5px;background:var(--s3);border-radius:3px;overflow:hidden}
+.pbf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--p),var(--pl))}
+
+/* REPLAY */
+.rl-list{display:flex;flex-direction:column;gap:9px}
+.ri-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--s2);border-radius:11px;border:1px solid var(--br);cursor:pointer;transition:all .15s;color:var(--tx)}
+.ri-item:hover{border-color:var(--pl)}
+.rt{width:44px;height:33px;background:linear-gradient(135deg,var(--pd),var(--s3));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ri-info{flex:1}
+.ri-title{font-size:14px;font-weight:500;margin-bottom:2px}
+.ri-meta{font-size:12px;color:var(--mu)}
+.rdur{font-size:12px;font-weight:600;color:var(--mu);background:var(--s3);padding:3px 9px;border-radius:20px}
+
+/* EVALS */
+.ev-item{padding:14px;background:var(--s2);border-radius:11px;border:1px solid var(--br);margin-bottom:9px}
+.ev-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.ev-name{font-size:14px;font-weight:600}
+.ev-dt{font-size:12px;color:var(--mu)}
+.ev-note{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.ev-note.good{color:var(--green)}.ev-note.ok{color:var(--gold)}.ev-note.bad{color:var(--red)}
+.ev-cmt{font-size:12px;color:var(--mu);margin-top:6px;line-height:1.5}
+.ev-tags{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.ev-tag{font-size:11px;padding:2px 7px;border-radius:4px;background:var(--s3);color:var(--mu)}
+.src-b{font-size:10px;padding:2px 6px;border-radius:4px;margin-left:6px;color:var(--pl);background:rgba(108,63,197,.15)}
+
+/* FORM */
+.f{margin-bottom:14px}
+.f label{display:block;font-size:11px;font-weight:600;letter-spacing:.5px;color:var(--mu);text-transform:uppercase;margin-bottom:6px}
+.f input,.f textarea,.f select{width:100%;background:var(--s2);border:1px solid var(--br);border-radius:9px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--tx);outline:none;transition:border-color .15s,box-shadow .15s}
+.f input:focus,.f textarea:focus,.f select:focus{border-color:var(--pl);box-shadow:0 0 0 3px var(--glow)}
+.f input::placeholder,.f textarea::placeholder{color:var(--mu)}
+.f textarea{resize:vertical;min-height:70px}
+.f select option{background:var(--s2)}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;background:none;border:1px dashed var(--br);border-radius:9px;color:var(--mu);font-size:13px;cursor:pointer;transition:all .15s;margin-top:7px}
+.add-btn:hover{border-color:var(--pl);color:var(--pl)}
+.del-btn{background:none;border:none;color:var(--mu);cursor:pointer;padding:4px 7px;border-radius:5px;font-size:13px;transition:all .15s}
+.del-btn:hover{background:rgba(255,107,107,.1);color:var(--red)}
+
+/* CALENDAR */
+.cal-ph{height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--s2);border-radius:12px;color:var(--mu);font-size:14px}
+.cal-ph .big{font-size:42px}
+.cal-btn{background:linear-gradient(135deg,var(--p),var(--pl));color:#fff;border:none;border-radius:11px;padding:11px 22px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px var(--glow);transition:all .15s}
+.cal-btn:hover{transform:translateY(-2px)}
+
+/* NEXT SESSION */
+.ns-box{background:linear-gradient(135deg,rgba(108,63,197,.2),rgba(139,98,217,.1));border:1px solid var(--p);border-radius:13px;padding:18px;display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.ns-ic{font-size:30px}
+.ns-info{flex:1}
+.ns-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700}
+.ns-time{font-size:13px;color:var(--mu);margin-top:3px}
+.ns-btn{background:linear-gradient(135deg,var(--p),var(--pl));color:#fff;border:none;border-radius:9px;padding:9px 18px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.ns-btn:hover{transform:translateY(-2px)}
+.ns-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* CAL EVENT BUTTON */
+.cal-event-btn{display:flex;align-items:center;gap:8px;background:rgba(46,204,138,.12);border:1px solid rgba(46,204,138,.3);border-radius:9px;padding:9px 14px;color:var(--green);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;margin-top:10px;width:100%}
+.cal-event-btn:hover{background:rgba(46,204,138,.2)}
+
+/* OBJECTIVES */
+.obj-list{display:flex;flex-direction:column;gap:7px}
+.oi{display:flex;align-items:center;gap:10px;padding:11px 13px;background:var(--s2);border-radius:9px;border:1px solid var(--br);font-size:13px}
+.oc{width:21px;height:21px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;cursor:pointer;transition:all .15s}
+.oc.done{background:rgba(46,204,138,.2);color:var(--green);border:1px solid var(--green)}
+.oc.pend{background:var(--s3);border:1px solid var(--br)}
+.oc.pend:hover{border-color:var(--pl)}
+.ot.done{text-decoration:line-through;color:var(--mu)}
+.osrc{font-size:10px;color:var(--mu);margin-left:auto;flex-shrink:0}
+.coach-box{background:var(--s2);border:1px solid var(--br);border-radius:11px;padding:14px;font-size:14px;line-height:1.7;color:var(--mu)}
+.coach-box strong{color:var(--tx)}
+.coach-box em{color:var(--pl)}
+.inline-row{display:flex;gap:8px;margin-top:10px}
+.ii{flex:1;background:var(--s2);border:1px solid var(--br);border-radius:9px;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--tx);outline:none}
+.ii:focus{border-color:var(--pl)}
+.ib{background:var(--p);color:#fff;border:none;border-radius:9px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--s1);border:1px solid var(--green);color:var(--green);border-radius:11px;padding:12px 18px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:9px;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);z-index:100;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.mo.open{opacity:1;pointer-events:all}
+.modal{background:var(--s1);border:1px solid var(--br);border-radius:20px;padding:30px;width:90%;max-width:460px;transform:scale(.95);transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+.mo.open .modal{transform:scale(1)}
+.modal h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:5px}
+.modal p{font-size:13px;color:var(--mu);margin-bottom:18px;line-height:1.6}
+.ma{display:flex;gap:9px;justify-content:flex-end;margin-top:18px}
+.bc{background:var(--s2);border:1px solid var(--br);color:var(--mu);border-radius:9px;padding:9px 16px;font-size:13px;cursor:pointer}
+.bc:hover{color:var(--tx)}
+.bok{background:linear-gradient(135deg,var(--p),var(--pl));color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<aside class="sb">
+  <div class="sb-logo">
+    <div class="sb-logo-row">
+      <div class="sb-badge">M&#x2211;</div>
+      <div><div class="sb-name">Spé Math Excellence</div><div class="sb-by">par <span>Noah Guiraud</span></div></div>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-sec">Mon espace</div>
+    <a class="nav-a on" onclick="sp('dash',this)" href="#"><span class="ic">🏠</span><span>Tableau de bord</span></a>
+    <a class="nav-a" onclick="sp('cours',this)" href="#"><span class="ic">📚</span><span>Mes cours</span></a>
+    <a class="nav-a" onclick="sp('replays',this)" href="#"><span class="ic">🎥</span><span>Replays</span></a>
+    <a class="nav-a" onclick="sp('evals',this)" href="#"><span class="ic">📊</span><span>Mes évals</span></a>
+    <div class="nav-sec">Organisation</div>
+    <a class="nav-a" onclick="sp('agenda',this)" href="#"><span class="ic">📅</span><span>Agenda</span></a>
+    <a class="nav-a" onclick="sp('obj',this)" href="#"><span class="ic">🎯</span><span>Objectifs</span></a>
+  </nav>
+  <div class="sb-bot">
+    <div class="stu-card">
+      <div class="stu-av" id="sbAv">T</div>
+      <div class="stu-info"><div class="stu-nm" id="sbNm">Élève</div><div class="stu-rl">Terminale Spé</div></div>
+      <button class="out-btn" onclick="logout()">↪</button>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div><h1 id="ptit">Tableau de bord</h1><p id="psub"></p></div>
+    <div class="wb" id="wb">—</div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="panel on pg" id="panel-dash">
+    <div class="stats" id="dStats"></div>
+    <div id="dSession"></div>
+    <div class="g32">
+      <div class="card">
+        <div class="ch"><div class="ctit">📅 Planning semaine</div><button class="cact" onclick="sp('agenda',null)">Agenda →</button></div>
+        <div class="wp" id="dWeek"></div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ctit">📈 Progression</div></div>
+        <div id="dProg"></div>
+        <div style="margin-top:18px"><div class="ctit" style="margin-bottom:10px">🎯 Objectifs</div><div class="obj-list" id="dObj"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ctit">🎥 Derniers replays</div><button class="cact" onclick="sp('replays',null)">Tous →</button></div>
+      <div class="rl-list" id="dReplays"></div>
+    </div>
+  </div>
+
+  <!-- COURS -->
+  <div class="panel pg" id="panel-cours">
+    <div id="chapListV">
+      <div class="card">
+        <div class="ch">
+          <div class="ctit">📚 Programme Terminale Spé</div>
+          <span id="chapProg" style="font-size:13px;color:var(--mu)">—</span>
+        </div>
+        <div class="pb" style="margin-bottom:20px"><div class="pbf" id="chapBar" style="width:0%"></div></div>
+        <div class="cl" id="chapList"></div>
+      </div>
+    </div>
+    <div id="chapDetV" style="display:none">
+      <button class="det-back" onclick="closeDetail()">← Retour</button>
+      <div class="card">
+        <div class="ch"><div class="ctit" id="detTit"></div><span class="cst" id="detSt"></span></div>
+        <div id="detDesc" style="font-size:14px;color:var(--mu);margin-bottom:16px;line-height:1.6"></div>
+        <div class="res-grid" id="detRes"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPLAYS -->
+  <div class="panel pg" id="panel-replays">
+    <div class="card">
+      <div class="ch"><div class="ctit">🎥 Replays des séances</div><span id="rCount" style="font-size:13px;color:var(--mu)">—</span></div>
+      <div class="rl-list" id="allReplays"></div>
+      <div id="noR" style="display:none;text-align:center;padding:28px;color:var(--mu);font-size:14px">Aucun replay disponible.</div>
+    </div>
+  </div>
+
+  <!-- EVALS -->
+  <div class="panel pg" id="panel-evals">
+    <div class="stats" id="eStats" style="grid-template-columns:repeat(3,1fr)"></div>
+    <div class="card">
+      <div class="ctit" style="margin-bottom:14px">➕ Ajouter une évaluation</div>
+      <div class="fr2">
+        <div class="f"><label>Nom du DS</label><input id="eName" placeholder="DS Suites — Récurrence"/></div>
+        <div class="f"><label>Date</label><input id="eDate" placeholder="1 mar 2025"/></div>
+      </div>
+      <div class="fr3">
+        <div class="f"><label>Note</label><input type="number" id="eNote" placeholder="15" min="0" max="20"/></div>
+        <div class="f"><label>Sur</label><input type="number" id="eMax" value="20"/></div>
+        <div class="f"><label>Appréciation</label><select id="eCls"><option value="good">🟢 Bon</option><option value="ok">🟡 Moyen</option><option value="bad">🔴 À retravailler</option></select></div>
+      </div>
+      <div class="f"><label>Commentaire</label><textarea id="eCmt" placeholder="Ce qui s'est bien passé, à retravailler..."></textarea></div>
+      <div class="f"><label>Tags (virgules)</label><input id="eTags" placeholder="Récurrence, Méthode..."/></div>
+      <button class="add-btn" onclick="addEval()">➕ Ajouter cette évaluation</button>
+    </div>
+    <div class="card">
+      <div class="ctit" style="margin-bottom:14px">📊 Historique</div>
+      <div id="evalList"></div>
+      <div id="noE" style="display:none;text-align:center;padding:28px;color:var(--mu);font-size:14px">Aucune évaluation.</div>
+    </div>
+  </div>
+
+  <!-- AGENDA -->
+  <div class="panel pg" id="panel-agenda">
+    <div id="agSess"></div>
+    <div class="card">
+      <div class="ch">
+        <div class="ctit">📅 Mon Google Agenda</div>
+        <button class="cact" onclick="openCalMo()">⚙️ Configurer</button>
+      </div>
+      <div id="calDisp"></div>
+      <!-- Add event to MY calendar -->
+      <div style="margin-top:16px;border-top:1px solid var(--br);padding-top:16px">
+        <div class="ctit" style="margin-bottom:12px;font-size:14px">➕ Ajouter un événement à mon agenda</div>
+        <div class="fr2">
+          <div class="f"><label>Titre</label><input id="evTit" placeholder="ex: Révision suites"/></div>
+          <div class="f"><label>Date (YYYYMMDD)</label><input id="evDate" placeholder="ex: 20250301"/></div>
+        </div>
+        <div class="fr2">
+          <div class="f"><label>Heure début (HHMM)</label><input id="evStart" placeholder="ex: 1400"/></div>
+          <div class="f"><label>Heure fin (HHMM)</label><input id="evEnd" placeholder="ex: 1530"/></div>
+        </div>
+        <div class="f"><label>Description (optionnel)</label><input id="evDesc" placeholder="Notes sur la séance..."/></div>
+        <button class="cal-event-btn" onclick="addToCalendar()">📅 Ajouter à mon Google Calendar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OBJECTIFS -->
+  <div class="panel pg" id="panel-obj">
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><div class="ctit">🎯 Objectifs de la semaine</div></div>
+        <div class="obj-list" id="objFull"></div>
+        <div class="inline-row">
+          <input class="ii" id="newObj" placeholder="Ajouter un objectif personnel..."/>
+          <button class="ib" onclick="addPersObj()">+</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ctit" style="margin-bottom:14px">💬 Message de Noah</div>
+        <div class="coach-box" id="coachBox"></div>
+        <div style="margin-top:12px;padding:11px 13px;background:rgba(108,63,197,.1);border-radius:9px;font-size:13px;color:var(--mu);border:1px solid var(--br)">📞 Des questions ? <strong style="color:var(--pl)">WhatsApp Noah</strong></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Calendar modal -->
+<div class="mo" id="calMo">
+  <div class="modal">
+    <h3>📅 Connecter ton Google Agenda</h3>
+    <p>1. Va sur <strong style="color:var(--pl)">calendar.google.com</strong><br/>2. ⚙️ Paramètres → ton agenda → "Intégrer l'agenda"<br/>3. Copie l'URL dans le champ <code style="background:var(--s2);padding:2px 5px;border-radius:4px">src="..."</code></p>
+    <div class="f"><label>URL d'intégration</label><input type="url" id="calIn" placeholder="https://calendar.google.com/calendar/embed?src=..."/></div>
+    <div class="ma">
+      <button class="bc" onclick="document.getElementById('calMo').classList.remove('open')">Annuler</button>
+      <button class="bok" onclick="saveCalUrl()">Connecter →</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">✓ <span id="toastMsg"></span></div>
+
+<script>
+// AUTH
+const STU=JSON.parse(sessionStorage.getItem('sme_student')||'null');
+if(!STU){window.location.href='index.html';}
+document.getElementById('sbNm').textContent=STU?.name||'Élève';
+document.getElementById('sbAv').textContent=(STU?.name||'E')[0].toUpperCase();
+if(STU?.color) document.getElementById('sbAv').style.background=STU.color;
+function logout(){sessionStorage.removeItem('sme_student');window.location.href='index.html';}
+
+// WEEK BADGE
+const now=new Date(),ws=new Date(now);
+ws.setDate(now.getDate()-((now.getDay()+6)%7));
+document.getElementById('wb').textContent='Semaine du '+ws.toLocaleDateString('fr-FR',{day:'numeric',month:'long'});
+
+// STATE
+const SK='sme_state';
+const SSK='sme_s_'+STU?.email;
+function getA(){
+  const d=JSON.parse(localStorage.getItem(SK)||'null');
+  return d||{students:[{name:'Thomas',email:'thomas@email.com',pass:'maths2024',color:'linear-gradient(135deg,#6C3FC5,#8B62D9)'}],agendaUrl:'',meetTitle:'',meetDate:'',meetUrl:'',weekPlan:[{day:'LUN',tasks:[]},{day:'MAR',tasks:[{text:'Vidéo cours',type:'cours'}]},{day:'MER',tasks:[{text:'Exercices niv.1',type:'exo'}]},{day:'JEU',tasks:[{text:'Révision fiche',type:'revise'}]},{day:'VEN',tasks:[{text:'Exercices niv.2',type:'exo'}]},{day:'SAM',tasks:[{text:'Cours 14h-15h30',type:'cours'}]},{day:'DIM',tasks:[]}],replays:[],chapters:[{num:1,name:'Suites — Raisonnement par récurrence',meta:'Fiche · Vidéo · Exercices',desc:'',status:'done',fiche:'',video:'',exercices:''},{num:2,name:'Suites — Limites',meta:'Fiche · Vidéo · Exercices',desc:'',status:'current',fiche:'',video:'',exercices:''},{num:3,name:'Suites — Opérations sur les limites',meta:'Fiche · Vidéo · Exercices',desc:'',status:'locked',fiche:'',video:'',exercices:''},{num:4,name:'Dérivation',meta:'Fiche · Vidéo · Exercices',desc:'',status:'done',fiche:'',video:'',exercices:''},{num:5,name:'Fonction exponentielle',meta:'Fiche · Vidéo · Exercices',desc:'',status:'locked',fiche:'',video:'',exercices:''},{num:6,name:'Fonctions trigonométriques',meta:'Fiche · Vidéo · Exercices',desc:'',status:'locked',fiche:'',video:'',exercices:''},{num:7,name:'Produit scalaire',meta:'Fiche · Vidéo · Exercices',desc:'',status:'locked',fiche:'',video:'',exercices:''},{num:8,name:'Géométrie repérée',meta:'Fiche · Vidéo · Exercices',desc:'',status:'locked',fiche:'',video:'',exercices:''},{num:9,name:'Probabilités conditionnelles',meta:'Fiche · Vidéo · Exercices',desc:'',status:'done',fiche:'',video:'',exercices:''},{num:10,name:'Variables aléatoires',meta:'Fiche · Vidéo · Exercices',desc:'',status:'done',fiche:'',video:'',exercices:''},{num:11,name:'Loi binomiale',meta:'Fiche · Vidéo · Exercices',desc:'',status:'locked',fiche:'',video:'',exercices:''},{num:12,name:'Algorithmique Python',meta:'Fiche · Vidéo · Exercices',desc:'',status:'locked',fiche:'',video:'',exercices:''}],objectives:[{text:'Regarder la vidéo du cours',done:false,source:'coach'},{text:'Lire la fiche méthode',done:false,source:'coach'},{text:'Faire les exercices niveau 1',done:false,source:'coach'}],message:{title:'',body:'',cta:''},evals:[]};
+}
+function getS(){return JSON.parse(localStorage.getItem(SSK)||'null')||{calUrl:'',evals:[],personalObjs:[],objDone:{}};}
+function saveS(d){localStorage.setItem(SSK,JSON.stringify(d));}
+
+// TOAST
+let tt;
+function toast(m,c='var(--green)'){const t=document.getElementById('toast');t.style.borderColor=c;t.style.color=c;document.getElementById('toastMsg').textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2500);}
+function openUrl(u){if(u&&u!='#'&&u!='')window.open(u,'_blank');else toast('Lien non configuré','var(--gold)');}
+
+// PANELS
+const META={dash:{t:'Tableau de bord',s:'Bienvenue '+STU?.name+' 🎯'},cours:{t:'Mes cours',s:'Programme Terminale Spé Maths'},replays:{t:'Replays',s:'Séances enregistrées'},evals:{t:'Mes évaluations',s:'Ajoute tes notes et suis ta progression'},agenda:{t:'Mon agenda',s:'Planning et prochaine séance'},obj:{t:'Objectifs',s:'Tâches de la semaine'}};
+const renders={dash:renderDash,cours:renderCours,replays:renderReplays,evals:renderEvals,agenda:renderAgenda,obj:renderObj};
+function sp(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nav-a').forEach(n=>n.classList.remove('on'));
+  document.getElementById('panel-'+id).classList.add('on');
+  if(el)el.classList.add('on');
+  else{const a=document.querySelector('[onclick*="\''+id+'\'"]');if(a)a.classList.add('on');}
+  document.getElementById('ptit').textContent=META[id].t;
+  document.getElementById('psub').textContent=META[id].s;
+  (renders[id]||Function)();
+}
+
+// SESSION BOX
+function renderSession(cid){
+  const a=getA(),el=document.getElementById(cid);if(!el)return;
+  if(!a.meetTitle){el.innerHTML='';return;}
+  el.innerHTML=`<div class="ns-box"><div class="ns-ic">📹</div><div class="ns-info"><div class="ns-title">${a.meetTitle}</div><div class="ns-time">${a.meetDate||''}</div></div><button class="ns-btn" ${a.meetUrl?'':'disabled'} onclick="openUrl('${a.meetUrl}')">${a.meetUrl?'Rejoindre →':'Lien à venir'}</button></div>`;
+}
+
+// DASHBOARD
+function renderDash(){
+  const a=getA(),s=getS();
+  const allE=[...(a.evals||[]),...(s.evals||[])];
+  const done=(a.chapters||[]).filter(c=>c.status==='done').length;
+  const avg=allE.length?(allE.reduce((t,e)=>t+(e.note/e.max*20),0)/allE.length).toFixed(1):'—';
+  document.getElementById('dStats').innerHTML=`
+    <div class="stat c1"><div class="sl">Séances</div><div class="sv">${(a.replays||[]).length}</div><div class="ss">enregistrées</div></div>
+    <div class="stat c2"><div class="sl">Moyenne</div><div class="sv">${avg}</div><div class="ss">sur 20</div></div>
+    <div class="stat c3"><div class="sl">Chapitres</div><div class="sv">${done}/${(a.chapters||[]).length}</div><div class="ss">terminés</div></div>
+    <div class="stat c4"><div class="sl">Évals</div><div class="sv">${allE.length}</div><div class="ss">enregistrées</div></div>`;
+  renderSession('dSession');
+  const today=['DIM','LUN','MAR','MER','JEU','VEN','SAM'][new Date().getDay()];
+  const dw=document.getElementById('dWeek');dw.innerHTML='';
+  (a.weekPlan||[]).forEach(d=>{
+    const r=document.createElement('div');r.className='dr'+(d.day===today?' today':'');
+    const tasks=d.tasks.length?d.tasks.map(t=>`<span class="tp ${t.type}"><span class="d"></span>${t.text}</span>`).join(''):`<span style="font-size:12px;color:var(--mu)">Repos</span>`;
+    r.innerHTML=`<div class="dl">${d.day}</div><div class="dt">${tasks}</div>`;dw.appendChild(r);
+  });
+  const ch=a.chapters||[];
+  document.getElementById('dProg').innerHTML=`
+    <div><div class="pb-lbl"><span>Chapitres</span><span>${done}/${ch.length}</span></div><div class="pb"><div class="pbf" style="width:${ch.length?Math.round(done/ch.length*100):0}%"></div></div></div>
+    <div style="margin-top:10px"><div class="pb-lbl"><span>Évals</span><span>${allE.length}</span></div><div class="pb"><div class="pbf" style="width:${Math.min(allE.length*10,100)}%"></div></div></div>`;
+  const allObjs=[...(a.objectives||[]).map((o,i)=>({...o,key:'a'+i})),...(s.personalObjs||[]).map((o,i)=>({...o,key:'p'+i}))];
+  const dObj=document.getElementById('dObj');dObj.innerHTML='';
+  allObjs.slice(0,3).forEach(o=>{
+    const done2=s.objDone&&s.objDone[o.key]!==undefined?s.objDone[o.key]:o.done;
+    const el=document.createElement('div');el.className='oi';
+    el.innerHTML=`<div class="oc ${done2?'done':'pend'}">${done2?'✓':''}</div><span class="ot ${done2?'done':''}">${o.text}</span>`;
+    dObj.appendChild(el);
+  });
+  const rr=(a.replays||[]).slice(0,3);
+  const dR=document.getElementById('dReplays');dR.innerHTML='';
+  if(!rr.length){dR.innerHTML='<div style="text-align:center;padding:20px;color:var(--mu);font-size:14px">Aucun replay.</div>';return;}
+  rr.forEach(r=>{const el=document.createElement('div');el.className='ri-item';el.onclick=()=>openUrl(r.url);el.innerHTML=`<div class="rt">🎥</div><div class="ri-info"><div class="ri-title">${r.title}</div><div class="ri-meta">${r.date}</div></div><span class="rdur">${r.duration}</span>`;dR.appendChild(el);});
+}
+
+// COURS
+function renderCours(){
+  const a=getA(),ch=a.chapters||[];
+  const done=ch.filter(c=>c.status==='done').length;
+  document.getElementById('chapProg').textContent=`${done}/${ch.length} terminés`;
+  document.getElementById('chapBar').style.width=ch.length?`${Math.round(done/ch.length*100)}%`:'0%';
+  const list=document.getElementById('chapList');list.innerHTML='';
+  ch.forEach((c,i)=>{
+    const el=document.createElement('div');el.className='ci'+(c.status==='locked'?' lk':'');
+    el.innerHTML=`<div class="cn">${c.num}</div><div class="ci-info"><div class="ci-name">${c.name}</div><div class="ci-meta">${c.meta||'Fiche · Vidéo · Exercices'}</div></div><span class="cst s-${c.status==='done'?'done':c.status==='current'?'cur':'lk'}">${{done:'Terminé ✓',current:'En cours',locked:'À venir'}[c.status]}</span><span style="color:var(--mu)">→</span>`;
+    if(c.status!=='locked')el.onclick=()=>openDetail(i);
+    list.appendChild(el);
+  });
+}
+function openDetail(i){
+  const ch=getA().chapters[i];
+  document.getElementById('chapListV').style.display='none';
+  document.getElementById('chapDetV').style.display='block';
+  document.getElementById('detTit').textContent=`${ch.num}. ${ch.name}`;
+  const ds=document.getElementById('detSt');
+  ds.className=`cst s-${ch.status==='done'?'done':ch.status==='current'?'cur':'lk'}`;
+  ds.textContent={done:'Terminé ✓',current:'En cours',locked:'À venir'}[ch.status];
+  document.getElementById('detDesc').textContent=ch.desc||'';
+  const res=document.getElementById('detRes');res.innerHTML='';
+  [{label:'📄 Fiche PDF',sub:'Télécharger / Consulter',url:ch.fiche},{label:'🎬 Vidéo cours',sub:'Regarder la vidéo',url:ch.video},{label:'📝 Exercices',sub:'Accéder aux exercices',url:ch.exercices}].forEach(r=>{
+    const el=document.createElement('div');el.className='res-card'+(r.url?'':' dis');
+    el.innerHTML=`<div class="ri" style="font-size:22px">${r.label.split(' ')[0]}</div><div class="rl">${r.label.split(' ').slice(1).join(' ')}</div><div class="rs">${r.url?r.sub:'Non disponible'}</div>`;
+    if(r.url)el.onclick=()=>openUrl(r.url);
+    res.appendChild(el);
+  });
+}
+function closeDetail(){document.getElementById('chapListV').style.display='';document.getElementById('chapDetV').style.display='none';}
+
+// REPLAYS
+function renderReplays(){
+  const a=getA(),rr=a.replays||[];
+  document.getElementById('rCount').textContent=`${rr.length} séance${rr.length>1?'s':''}`;
+  const list=document.getElementById('allReplays');list.innerHTML='';
+  document.getElementById('noR').style.display=rr.length?'none':'block';
+  rr.forEach(r=>{const el=document.createElement('div');el.className='ri-item';el.onclick=()=>openUrl(r.url);el.innerHTML=`<div class="rt">🎥</div><div class="ri-info"><div class="ri-title">${r.title}</div><div class="ri-meta">${r.date}</div></div><span class="rdur">${r.duration}</span>`;list.appendChild(el);});
+}
+
+// EVALS
+function renderEvals(){
+  const a=getA(),s=getS();
+  const all=[...(a.evals||[]).map(e=>({...e,src:'coach'})),...(s.evals||[]).map(e=>({...e,src:'moi'}))];
+  const avg=all.length?(all.reduce((t,e)=>t+(e.note/e.max*20),0)/all.length).toFixed(1):'—';
+  const best=all.length?all.reduce((b,e)=>e.note/e.max>b.note/b.max?e:b,all[0]):null;
+  document.getElementById('eStats').innerHTML=`
+    <div class="stat c1"><div class="sl">Moyenne</div><div class="sv">${avg}</div><div class="ss">sur 20</div></div>
+    <div class="stat c3"><div class="sl">Meilleure</div><div class="sv">${best?best.note+'/'+best.max:'—'}</div><div class="ss">${best?best.name.slice(0,18):'—'}</div></div>
+    <div class="stat c2"><div class="sl">Total</div><div class="sv">${all.length}</div><div class="ss">évaluations</div></div>`;
+  const list=document.getElementById('evalList');list.innerHTML='';
+  document.getElementById('noE').style.display=all.length?'none':'block';
+  all.forEach((e,gi)=>{
+    const si=gi-(a.evals||[]).length;
+    const div=document.createElement('div');div.className='ev-item';
+    div.innerHTML=`<div class="ev-hd"><div><div class="ev-name">${e.name}<span class="src-b">${e.src}</span></div><div class="ev-dt">${e.date}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="ev-note ${e.noteClass}">${e.note}/${e.max}</div>${e.src==='moi'?`<button class="del-btn" onclick="delEval(${si})">🗑</button>`:''}</div></div>${e.comment?`<div class="ev-cmt">${e.comment}</div>`:''}${e.tags&&e.tags.length?`<div class="ev-tags">${e.tags.map(t=>`<span class="ev-tag">${t}</span>`).join('')}</div>`:''}`;
+    list.appendChild(div);
+  });
+}
+function addEval(){
+  const name=document.getElementById('eName').value.trim(),date=document.getElementById('eDate').value.trim(),note=parseFloat(document.getElementById('eNote').value),max=parseFloat(document.getElementById('eMax').value)||20,noteClass=document.getElementById('eCls').value,comment=document.getElementById('eCmt').value.trim(),tagsRaw=document.getElementById('eTags').value.trim();
+  if(!name||!date||isNaN(note)){toast('⚠️ Remplis nom, date et note','var(--gold)');return;}
+  const s=getS();s.evals=s.evals||[];
+  s.evals.unshift({name,date,note,max,noteClass,comment,tags:tagsRaw?tagsRaw.split(',').map(t=>t.trim()):[]});
+  saveS(s);['eName','eDate','eNote','eCmt','eTags'].forEach(id=>document.getElementById(id).value='');document.getElementById('eMax').value='20';
+  renderEvals();toast('✓ Évaluation ajoutée !');
+}
+function delEval(i){const s=getS();s.evals.splice(i,1);saveS(s);renderEvals();toast('✓ Supprimée');}
+
+// AGENDA
+function renderAgenda(){
+  renderSession('agSess');
+  const s=getS(),url=s.calUrl||'';
+  document.getElementById('calDisp').innerHTML=url?`<div style="border-radius:11px;overflow:hidden;border:1px solid var(--br)"><iframe src="${url}" style="width:100%;height:480px;border:0" frameborder="0" scrolling="no"></iframe></div>`:`<div class="cal-ph"><div class="big">📅</div><div style="text-align:center"><strong style="color:var(--tx)">Connecte ton Google Agenda</strong><br/>Clique ci-dessous pour afficher ton planning</div><button class="cal-btn" onclick="openCalMo()">Connecter mon agenda →</button></div>`;
+  document.getElementById('calIn')&&(document.getElementById('calIn').value=url);
+}
+function openCalMo(){document.getElementById('calMo').classList.add('open');const s=getS();const ci=document.getElementById('calIn');if(ci)ci.value=s.calUrl||'';}
+function saveCalUrl(){const s=getS();s.calUrl=document.getElementById('calIn').value.trim();saveS(s);document.getElementById('calMo').classList.remove('open');renderAgenda();toast('✓ Agenda connecté !');}
+
+function addToCalendar(){
+  const title=document.getElementById('evTit').value.trim(),date=document.getElementById('evDate').value.trim(),start=document.getElementById('evStart').value.trim(),end=document.getElementById('evEnd').value.trim(),desc=document.getElementById('evDesc').value.trim();
+  if(!title||!date){toast('⚠️ Titre et date requis','var(--gold)');return;}
+  const dt=date.length===8?date:date.replace(/-/g,'');
+  const st=start?`${dt}T${start}00`:'';
+  const en=end?`${dt}T${end}00`:'';
+  let url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}`;
+  if(st&&en)url+=`&dates=${st}/${en}`;
+  else if(dt)url+=`&dates=${dt}/${dt}`;
+  if(desc)url+=`&details=${encodeURIComponent(desc)}`;
+  window.open(url,'_blank');
+  ['evTit','evDate','evStart','evEnd','evDesc'].forEach(id=>document.getElementById(id).value='');
+  toast('✓ Google Calendar ouvert !');
+}
+
+// OBJECTIFS
+function renderObj(){
+  const a=getA(),s=getS();
+  const ao=(a.objectives||[]).map((o,i)=>({...o,key:'a'+i,del:false}));
+  const po=(s.personalObjs||[]).map((o,i)=>({...o,key:'p'+i,del:true}));
+  const all=[...ao,...po];
+  const list=document.getElementById('objFull');list.innerHTML='';
+  if(!all.length){list.innerHTML='<div style="text-align:center;padding:18px;color:var(--mu);font-size:14px">Aucun objectif.</div>';return;}
+  all.forEach(o=>{
+    const done=s.objDone&&s.objDone[o.key]!==undefined?s.objDone[o.key]:o.done;
+    const el=document.createElement('div');el.className='oi';
+    el.innerHTML=`<div class="oc ${done?'done':'pend'}">${done?'✓':''}</div><span class="ot ${done?'done':''}">${o.text}</span><span class="osrc">${o.source==='coach'||!o.source?'👨‍🏫':'perso'}</span>${o.del?`<button onclick="delPO('${o.key}')" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:12px;padding:2px 4px">✕</button>`:''}`;
+    el.querySelector('.oc').addEventListener('click',function(){const s2=getS();s2.objDone=s2.objDone||{};s2.objDone[o.key]=!done;saveS(s2);renderObj();});
+    list.appendChild(el);
+  });
+  const msg=a.message||{};
+  document.getElementById('coachBox').innerHTML=`<strong>${msg.title||'—'}</strong><br/><br/>${msg.body||'Aucun message.'} ${msg.cta?`<br/><br/><em>${msg.cta}</em>`:''}`;
+}
+function addPersObj(){const input=document.getElementById('newObj'),text=input.value.trim();if(!text)return;const s=getS();s.personalObjs=s.personalObjs||[];s.personalObjs.push({text,done:false,source:'perso'});saveS(s);input.value='';renderObj();toast('✓ Objectif ajouté !');}
+function delPO(key){const s=getS();if(key.startsWith('p')){const i=parseInt(key.slice(1));s.personalObjs.splice(i,1);}saveS(s);renderObj();}
+
+// INIT
+renderDash();
+</script>
+</body>
+</html>
