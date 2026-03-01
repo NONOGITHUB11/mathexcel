@@ -7,7 +7,7 @@
       "color": "linear-gradient(135deg,#6C3FC5,#8B62D9)"
     },
     {
-      "name": "LÃ©a",
+      "name": "LÃÂ©a",
       "email": "lea@email.com",
       "pass": "maths2024",
       "color": "linear-gradient(135deg,#F5C842,#FF9800)"
@@ -26,7 +26,7 @@
       "day": "MAR",
       "tasks": [
         {
-          "text": "VidÃ©o du cours",
+          "text": "VidÃÂ©o du cours",
           "type": "cours"
         }
       ]
@@ -44,7 +44,7 @@
       "day": "JEU",
       "tasks": [
         {
-          "text": "RÃ©vision fiche",
+          "text": "RÃÂ©vision fiche",
           "type": "revise"
         }
       ]
@@ -75,8 +75,8 @@
   "chapters": [
     {
       "num": 1,
-      "name": "Suites â Raisonnement par rÃ©currence",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "name": "Suites Ã¢ÂÂ Raisonnement par rÃÂ©currence",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "done",
       "fiche": "https://drive.google.com/file/d/1_VXL7SbW6WoW2KPJXeyfm-LEOqsPDagC/view?usp=sharing",
       "video": "",
@@ -84,8 +84,8 @@
     },
     {
       "num": 2,
-      "name": "Suites â Limites",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "name": "Suites Ã¢ÂÂ Limites",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "current",
       "fiche": "",
       "video": "",
@@ -93,8 +93,8 @@
     },
     {
       "num": 3,
-      "name": "Suites â OpÃ©rations sur les limites",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "name": "Suites Ã¢ÂÂ OpÃÂ©rations sur les limites",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -102,8 +102,8 @@
     },
     {
       "num": 4,
-      "name": "DÃ©rivation",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "name": "DÃÂ©rivation",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "done",
       "fiche": "",
       "video": "",
@@ -112,7 +112,7 @@
     {
       "num": 5,
       "name": "Fonction exponentielle",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -120,8 +120,8 @@
     },
     {
       "num": 6,
-      "name": "Fonctions trigonomÃ©triques",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "name": "Fonctions trigonomÃÂ©triques",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -130,7 +130,7 @@
     {
       "num": 7,
       "name": "Produit scalaire",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -138,8 +138,8 @@
     },
     {
       "num": 8,
-      "name": "GÃ©omÃ©trie repÃ©rÃ©e",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "name": "GÃÂ©omÃÂ©trie repÃÂ©rÃÂ©e",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -147,8 +147,8 @@
     },
     {
       "num": 9,
-      "name": "ProbabilitÃ©s conditionnelles",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "name": "ProbabilitÃÂ©s conditionnelles",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "done",
       "fiche": "",
       "video": "",
@@ -156,8 +156,8 @@
     },
     {
       "num": 10,
-      "name": "Variables alÃ©atoires",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "name": "Variables alÃÂ©atoires",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "done",
       "fiche": "",
       "video": "",
@@ -166,7 +166,7 @@
     {
       "num": 11,
       "name": "Loi binomiale",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -175,7 +175,7 @@
     {
       "num": 12,
       "name": "Algorithmique Python",
-      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -186,12 +186,12 @@
   "evals": [],
   "objectives": [
     {
-      "text": "Regarder la vidÃ©o du chapitre en cours",
+      "text": "Regarder la vidÃÂ©o du chapitre en cours",
       "done": false,
       "source": "coach"
     },
     {
-      "text": "Lire la fiche mÃ©thode",
+      "text": "Lire la fiche mÃÂ©thode",
       "done": false,
       "source": "coach"
     },
