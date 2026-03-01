@@ -7,14 +7,14 @@
       "color": "linear-gradient(135deg,#6C3FC5,#8B62D9)"
     },
     {
-      "name": "LÃÂ©a",
+      "name": "LÃÂÃÂ©a",
       "email": "lea@email.com",
       "pass": "maths2024",
       "color": "linear-gradient(135deg,#F5C842,#FF9800)"
     },
     {
       "name": "Yanick",
-      "email": "Yanick@email.com",
+      "email": "yanick@email.com",
       "pass": "yanick1",
       "color": "linear-gradient(135deg,#F5C842,#FF9800)"
     }
@@ -32,7 +32,7 @@
       "day": "MAR",
       "tasks": [
         {
-          "text": "VidÃÂ©o du cours",
+          "text": "VidÃÂÃÂ©o du cours",
           "type": "cours"
         }
       ]
@@ -50,7 +50,7 @@
       "day": "JEU",
       "tasks": [
         {
-          "text": "RÃÂ©vision fiche",
+          "text": "RÃÂÃÂ©vision fiche",
           "type": "revise"
         }
       ]
@@ -81,8 +81,8 @@
   "chapters": [
     {
       "num": 1,
-      "name": "Suites Ã¢ÂÂ Raisonnement par rÃÂ©currence",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "name": "Suites ÃÂ¢ÃÂÃÂ Raisonnement par rÃÂÃÂ©currence",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "done",
       "fiche": "https://drive.google.com/file/d/1_VXL7SbW6WoW2KPJXeyfm-LEOqsPDagC/view?usp=sharing",
       "video": "https://www.youtube.com/watch?v=MJv7_pkFcdA&t=1s",
@@ -90,8 +90,8 @@
     },
     {
       "num": 2,
-      "name": "Suites Ã¢ÂÂ Limites",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "name": "Suites ÃÂ¢ÃÂÃÂ Limites",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "current",
       "fiche": "",
       "video": "",
@@ -99,8 +99,8 @@
     },
     {
       "num": 3,
-      "name": "Suites Ã¢ÂÂ OpÃÂ©rations sur les limites",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "name": "Suites ÃÂ¢ÃÂÃÂ OpÃÂÃÂ©rations sur les limites",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -108,8 +108,8 @@
     },
     {
       "num": 4,
-      "name": "DÃÂ©rivation",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "name": "DÃÂÃÂ©rivation",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "done",
       "fiche": "",
       "video": "",
@@ -118,7 +118,7 @@
     {
       "num": 5,
       "name": "Fonction exponentielle",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -126,8 +126,8 @@
     },
     {
       "num": 6,
-      "name": "Fonctions trigonomÃÂ©triques",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "name": "Fonctions trigonomÃÂÃÂ©triques",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -136,7 +136,7 @@
     {
       "num": 7,
       "name": "Produit scalaire",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -144,8 +144,8 @@
     },
     {
       "num": 8,
-      "name": "GÃÂ©omÃÂ©trie repÃÂ©rÃÂ©e",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "name": "GÃÂÃÂ©omÃÂÃÂ©trie repÃÂÃÂ©rÃÂÃÂ©e",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -153,8 +153,8 @@
     },
     {
       "num": 9,
-      "name": "ProbabilitÃÂ©s conditionnelles",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "name": "ProbabilitÃÂÃÂ©s conditionnelles",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "done",
       "fiche": "",
       "video": "",
@@ -162,8 +162,8 @@
     },
     {
       "num": 10,
-      "name": "Variables alÃÂ©atoires",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "name": "Variables alÃÂÃÂ©atoires",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "done",
       "fiche": "",
       "video": "",
@@ -172,7 +172,7 @@
     {
       "num": 11,
       "name": "Loi binomiale",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -181,7 +181,7 @@
     {
       "num": 12,
       "name": "Algorithmique Python",
-      "meta": "Fiche ÃÂ· VidÃÂ©o ÃÂ· Exercices",
+      "meta": "Fiche ÃÂÃÂ· VidÃÂÃÂ©o ÃÂÃÂ· Exercices",
       "status": "locked",
       "fiche": "",
       "video": "",
@@ -192,12 +192,12 @@
   "evals": [],
   "objectives": [
     {
-      "text": "Regarder la vidÃÂ©o du chapitre en cours",
+      "text": "Regarder la vidÃÂÃÂ©o du chapitre en cours",
       "done": false,
       "source": "coach"
     },
     {
-      "text": "Lire la fiche mÃÂ©thode",
+      "text": "Lire la fiche mÃÂÃÂ©thode",
       "done": false,
       "source": "coach"
     },
