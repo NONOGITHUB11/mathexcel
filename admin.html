@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>MathExcel — Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#0A0A0F;--surface:#111118;--surface2:#18181F;--surface3:#22222C;--border:rgba(255,255,255,.07);--bh:rgba(255,255,255,.12);--text:#F2F2F5;--muted:#7A7A8C;--accent:#7C5CFC;--accent2:#A78BFA;--gold:#F5C842;--green:#34D399;--red:#F87171;--glow:rgba(124,92,252,.2);--r:14px}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,92,252,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(124,92,252,.03) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
+    .sidebar{width:220px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:24px 0;position:sticky;top:0;height:100vh;z-index:10}
+    .sb-logo{padding:0 20px 24px;border-bottom:1px solid var(--border);margin-bottom:16px}
+    .sb-mark{width:38px;height:38px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:10px}
+    .sb-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
+    .sb-sub{font-size:11px;color:var(--muted);margin-top:2px}
+    .sb-section{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:12px 20px 6px}
+    .sb-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;border-left:2px solid transparent;text-decoration:none}
+    .sb-item:hover{color:var(--text);background:var(--surface2)}
+    .sb-item.active{color:var(--text);background:rgba(124,92,252,.1);border-left-color:var(--accent)}
+    .sb-item .ico{font-size:15px;width:18px;text-align:center}
+    .sb-foot{margin-top:auto;padding:16px 20px 0;border-top:1px solid var(--border)}
+    .view-link{display:flex;align-items:center;gap:8px;width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--muted);font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;transition:all .15s}
+    .view-link:hover{color:var(--text)}
+    .main{flex:1;min-width:0;position:relative;z-index:1}
+    .topbar{padding:20px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,15,.85);backdrop-filter:blur(12px);position:sticky;top:0;z-index:5}
+    .topbar h1{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+    .topbar p{font-size:12px;color:var(--muted);margin-top:2px}
+    .save-btn{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;border-radius:10px;padding:10px 20px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;box-shadow:0 4px 16px var(--glow)}
+    .save-btn:hover{transform:translateY(-1px)}
+    .save-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .panel{display:none;padding:32px}.panel.active{display:block}
+    .section-header{margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+    .section-header h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700}
+    .section-header p{font-size:13px;color:var(--muted);margin-top:4px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:20px}
+    .card-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px}
+    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .field{margin-bottom:16px}
+    .field label{display:block;font-size:12px;font-weight:600;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;margin-bottom:7px}
+    .field input,.field textarea,.field select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--glow)}
+    .field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+    .field textarea{resize:vertical;min-height:80px}
+    .field select option{background:var(--surface2)}
+    .fr2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+    .add-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;background:none;border:1px dashed var(--border);border-radius:10px;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;margin-top:8px}
+    .add-btn:hover{border-color:var(--accent);color:var(--accent2)}
+    .list-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px}
+    .li-icon{font-size:20px;flex-shrink:0}
+    .li-info{flex:1;min-width:0}
+    .li-name{font-size:14px;font-weight:500}
+    .li-meta{font-size:12px;color:var(--muted);margin-top:2px}
+    .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;flex-shrink:0}
+    .b-done{background:rgba(52,211,153,.15);color:var(--green)}
+    .b-ok{background:rgba(245,200,66,.15);color:var(--gold)}
+    .del-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:4px 8px;border-radius:6px;font-size:14px;transition:all .15s;flex-shrink:0}
+    .del-btn:hover{background:rgba(248,113,113,.1);color:var(--red)}
+    .student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:20px}
+    .s-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px;position:relative}
+    .s-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .s-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:white;flex-shrink:0}
+    .s-name{font-size:15px;font-weight:600}
+    .s-email{font-size:12px;color:var(--muted)}
+    .s-del{position:absolute;top:10px;right:10px;background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;border-radius:6px;font-size:14px;transition:all .15s}
+    .s-del:hover{background:rgba(248,113,113,.1);color:var(--red)}
+    .s-field{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+    .s-field label{font-size:11px;color:var(--muted);width:60px;flex-shrink:0;font-weight:600;text-transform:uppercase}
+    .s-field input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none}
+    .s-field input:focus{border-color:var(--accent)}
+    .week-grid{background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .wg-row{display:grid;grid-template-columns:60px 1fr;border-bottom:1px solid var(--border)}
+    .wg-row:last-child{border-bottom:none}
+    .wg-day{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);padding:14px 0 14px 16px;display:flex;align-items:flex-start}
+    .wg-tasks{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start}
+    .task-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:6px;font-size:12px}
+    .task-chip.cours{background:rgba(124,92,252,.2);color:var(--accent2)}
+    .task-chip.exo{background:rgba(52,211,153,.15);color:var(--green)}
+    .task-chip.revise{background:rgba(245,200,66,.12);color:var(--gold)}
+    .chip-del{background:none;border:none;color:currentColor;opacity:.5;cursor:pointer;font-size:12px;padding:0;line-height:1}
+    .chip-del:hover{opacity:1}
+    .add-task-row{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;width:100%}
+    .at-input{flex:1;min-width:130px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none}
+    .at-input:focus{border-color:var(--accent)}
+    .at-select{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 8px;font-size:12px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;cursor:pointer}
+    .at-btn{background:var(--accent);color:white;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer}
+    .chap-item{display:flex;align-items:stretch;background:var(--surface2);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden}
+    .chap-num{width:44px;background:linear-gradient(135deg,rgba(74,42,143,.8),rgba(108,63,197,.6));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:white;flex-shrink:0}
+    .chap-body{flex:1;padding:14px 16px}
+    .chap-name-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .chap-name-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;font-weight:500;color:var(--text);font-family:'DM Sans',sans-serif;outline:none}
+    .chap-name-input:focus{border-color:var(--accent)}
+    .chap-status-sel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;flex-shrink:0}
+    .chap-links{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+    .clf{display:flex;align-items:center;gap:6px}
+    .clf label{font-size:11px;color:var(--muted);white-space:nowrap;font-weight:600;width:46px;flex-shrink:0}
+    .clf input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 8px;font-size:12px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none}
+    .clf input:focus{border-color:var(--accent)}
+    .clf input::placeholder{color:var(--muted)}
+    .obj-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;font-size:13px}
+    .obj-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0}
+    .meet-status{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-top:12px;font-size:13px}
+    .meet-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0}
+    .meet-dot.on{background:var(--green);box-shadow:0 0 6px var(--green)}
+    .agenda-preview{background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:16px}
+    .agenda-ph{height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);font-size:14px}
+    .toast{position:fixed;bottom:28px;right:28px;background:var(--surface2);border:1px solid var(--green);color:var(--green);border-radius:12px;padding:14px 20px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);z-index:100;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+    .toast.show{transform:translateY(0);opacity:1}
+    .inline-row{display:flex;gap:8px;margin-top:8px}
+    .inline-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);outline:none}
+    .inline-input:focus{border-color:var(--accent)}
+    .inline-btn{background:var(--accent);color:white;border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+    .config-box{background:rgba(124,92,252,.08);border:1px solid rgba(124,92,252,.3);border-radius:12px;padding:20px;margin-bottom:20px}
+    .config-box h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent2)}
+    .config-box p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px}
+  </style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sb-logo"><div class="sb-mark">M∑</div><div class="sb-title">MathExcel</div><div class="sb-sub">Panneau Admin</div></div>
+  <div class="sb-section">Gestion</div>
+  <a class="sb-item active" onclick="sp('config',this)" href="#"><span class="ico">⚙️</span>Configuration</a>
+  <a class="sb-item" onclick="sp('eleves',this)" href="#"><span class="ico">👨‍🎓</span>Élèves</a>
+  <a class="sb-item" onclick="sp('agenda',this)" href="#"><span class="ico">📅</span>Agenda & Meet</a>
+  <a class="sb-item" onclick="sp('planning',this)" href="#"><span class="ico">🗓️</span>Planning semaine</a>
+  <a class="sb-item" onclick="sp('cours',this)" href="#"><span class="ico">📚</span>Cours & ressources</a>
+  <a class="sb-item" onclick="sp('replays',this)" href="#"><span class="ico">🎥</span>Replays</a>
+  <a class="sb-item" onclick="sp('evals',this)" href="#"><span class="ico">📊</span>Évaluations</a>
+  <a class="sb-item" onclick="sp('objectifs',this)" href="#"><span class="ico">🎯</span>Objectifs</a>
+  <a class="sb-item" onclick="sp('message',this)" href="#"><span class="ico">💬</span>Message coach</a>
+  <div class="sb-foot"><a class="view-link" href="index.html" target="_blank"><span>👁️</span>Voir le site élève</a></div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div><h1 id="pTitle">Configuration</h1><p id="pSub">Connecte ton repo GitHub pour synchroniser les données</p></div>
+    <button class="save-btn" id="saveBtn" onclick="saveAll()">💾 Sauvegarder & Publier</button>
+  </div>
+
+  <!-- CONFIG -->
+  <div class="panel active" id="panel-config">
+    <div class="section-header"><h2>⚙️ Configuration GitHub</h2><p>Les données sont stockées dans un fichier <code>data.json</code> sur ton GitHub. Ça permet à tous les élèves de voir les mises à jour en temps réel depuis n'importe quel appareil.</p></div>
+    <div class="config-box">
+      <h3>🔑 Comment configurer (une seule fois)</h3>
+      <p>
+        1. Va sur <strong>github.com → Settings → Developer settings → Personal access tokens → Tokens (classic)</strong><br/>
+        2. Clique <strong>Generate new token</strong> → coche <strong>repo</strong> → copie le token<br/>
+        3. Remplis les champs ci-dessous et clique <strong>Tester la connexion</strong>
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title">🔗 Connexion GitHub</div>
+      <div class="fr2">
+        <div class="field"><label>Ton nom d'utilisateur GitHub</label><input id="ghUser" placeholder="ex: jean-dupont"/></div>
+        <div class="field"><label>Nom du repo</label><input id="ghRepo" placeholder="ex: mathexcel"/></div>
+      </div>
+      <div class="field"><label>Token GitHub (restera sur cet appareil uniquement)</label><input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx"/></div>
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <button class="add-btn" style="flex:1" onclick="testGithub()">🔍 Tester la connexion</button>
+        <button class="add-btn" style="flex:1" onclick="saveConfig()">✅ Sauvegarder la config</button>
+      </div>
+      <div id="ghStatus" style="margin-top:12px;padding:12px;border-radius:10px;font-size:13px;display:none;"></div>
+    </div>
+  </div>
+
+  <!-- ÉLÈVES -->
+  <div class="panel" id="panel-eleves">
+    <div class="section-header"><h2>👨‍🎓 Élèves inscrits</h2><p>Modifications sauvegardées sur GitHub — visibles immédiatement par les élèves.</p></div>
+    <div class="student-grid" id="studentGrid"></div>
+    <div class="card">
+      <div class="card-title">➕ Ajouter un élève</div>
+      <div class="fr2">
+        <div class="field"><label>Prénom</label><input id="nName" placeholder="Thomas"/></div>
+        <div class="field"><label>Email</label><input type="email" id="nEmail" placeholder="thomas@email.com"/></div>
+      </div>
+      <div class="fr2">
+        <div class="field"><label>Mot de passe</label><input id="nPass" placeholder="maths2025"/></div>
+        <div class="field"><label>Couleur avatar</label>
+          <select id="nColor">
+            <option value="linear-gradient(135deg,#6C3FC5,#8B62D9)">Violet</option>
+            <option value="linear-gradient(135deg,#F5C842,#FF9800)">Or</option>
+            <option value="linear-gradient(135deg,#2ECC8A,#0080C0)">Émeraude</option>
+            <option value="linear-gradient(135deg,#F87171,#FC4A8B)">Rose</option>
+            <option value="linear-gradient(135deg,#60A5FA,#3B82F6)">Bleu</option>
+          </select>
+        </div>
+      </div>
+      <button class="add-btn" onclick="addStudent()">➕ Ajouter</button>
+    </div>
+  </div>
+
+  <!-- AGENDA -->
+  <div class="panel" id="panel-agenda">
+    <div class="section-header"><h2>📅 Google Agenda & Meet</h2></div>
+    <div class="card">
+      <div class="card-title">🔗 Google Agenda</div>
+      <div class="field"><label>URL d'intégration iframe</label><input type="url" id="agendaUrl" placeholder="https://calendar.google.com/calendar/embed?src=..." oninput="updateAgendaPreview()"/></div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">📌 Google Agenda → ⚙️ Paramètres → ton agenda → "Intégrer l'agenda" → copie le src="..."</div>
+      <div class="agenda-preview" id="agendaPreview"><div class="agenda-ph"><span style="font-size:36px">📅</span><span>Colle l'URL pour voir un aperçu</span></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📹 Prochaine séance Google Meet</div>
+      <div class="fr2">
+        <div class="field"><label>Titre</label><input id="meetTitle" placeholder="Limites de suites"/></div>
+        <div class="field"><label>Date et heure</label><input id="meetDate" placeholder="Samedi 1 mars · 14h00 – 15h30"/></div>
+      </div>
+      <div class="field"><label>Lien Google Meet</label><input type="url" id="meetUrl" placeholder="https://meet.google.com/xxx-xxxx-xxx"/></div>
+      <div class="meet-status"><div class="meet-dot" id="meetDot"></div><span id="meetTxt" style="color:var(--muted)">Aucune séance configurée</span></div>
+    </div>
+  </div>
+
+  <!-- PLANNING -->
+  <div class="panel" id="panel-planning">
+    <div class="section-header"><h2>🗓️ Planning de la semaine</h2></div>
+    <div class="card"><div class="card-title">Semaine en cours</div><div class="week-grid" id="weekGrid"></div></div>
+  </div>
+
+  <!-- COURS -->
+  <div class="panel" id="panel-cours">
+    <div class="section-header"><h2>📚 Cours & ressources</h2><p>Tous les chapitres sont partagés entre tous les élèves. Colle les liens Google Drive pour les fiches PDF, vidéos et exercices.</p></div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title" style="margin-bottom:0">Liste des chapitres</div>
+        <button class="add-btn" style="width:auto;margin:0;padding:8px 16px;" onclick="addChapter()">➕ Nouveau chapitre</button>
+      </div>
+      <div id="chapList"></div>
+    </div>
+  </div>
+
+  <!-- REPLAYS -->
+  <div class="panel" id="panel-replays">
+    <div class="section-header"><h2>🎥 Replays des séances</h2></div>
+    <div class="card">
+      <div class="card-title">➕ Ajouter un replay</div>
+      <div class="fr2">
+        <div class="field"><label>Titre</label><input id="rTitle" placeholder="Séance 13 — Limites avancées"/></div>
+        <div class="field"><label>Date</label><input id="rDate" placeholder="1 mar 2025"/></div>
+      </div>
+      <div class="fr2">
+        <div class="field"><label>Durée</label><input id="rDur" placeholder="1h30"/></div>
+        <div class="field"><label>Lien Google Drive ou YouTube</label><input type="url" id="rUrl" placeholder="https://drive.google.com/..."/></div>
+      </div>
+      <button class="add-btn" onclick="addReplay()">➕ Ajouter</button>
+    </div>
+    <div class="card"><div class="card-title">📋 Replays</div><div id="replayList"></div><div id="noReplays" style="display:none;text-align:center;padding:24px;color:var(--muted);font-size:14px;">Aucun replay.</div></div>
+  </div>
+
+  <!-- EVALS -->
+  <div class="panel" id="panel-evals">
+    <div class="section-header"><h2>📊 Évaluations coach</h2></div>
+    <div class="card">
+      <div class="card-title">➕ Ajouter une évaluation</div>
+      <div class="fr2">
+        <div class="field"><label>Nom du DS</label><input id="eName" placeholder="DS Suites — Récurrence"/></div>
+        <div class="field"><label>Date</label><input id="eDate" placeholder="1 mar 2025"/></div>
+      </div>
+      <div class="fr3">
+        <div class="field"><label>Note</label><input type="number" id="eNote" placeholder="15" min="0" max="20"/></div>
+        <div class="field"><label>Sur</label><input type="number" id="eMax" value="20"/></div>
+        <div class="field"><label>Couleur</label><select id="eClass"><option value="good">🟢 Bon</option><option value="ok">🟡 Moyen</option><option value="bad">🔴 À retravailler</option></select></div>
+      </div>
+      <div class="field"><label>Commentaire</label><textarea id="eComment" placeholder="Retour personnalisé..."></textarea></div>
+      <div class="field"><label>Tags (virgules)</label><input id="eTags" placeholder="Récurrence, Suites..."/></div>
+      <button class="add-btn" onclick="addEval()">➕ Ajouter</button>
+    </div>
+    <div class="card"><div class="card-title">📋 Évaluations</div><div id="evalList"></div><div id="noEvals" style="display:none;text-align:center;padding:24px;color:var(--muted);font-size:14px;">Aucune évaluation.</div></div>
+  </div>
+
+  <!-- OBJECTIFS -->
+  <div class="panel" id="panel-objectifs">
+    <div class="section-header"><h2>🎯 Objectifs de la semaine</h2><p>S'affichent pour tous les élèves. Ils peuvent aussi ajouter des objectifs personnels.</p></div>
+    <div class="card">
+      <div class="card-title">Objectifs actuels</div>
+      <div id="objList"></div>
+      <div class="inline-row">
+        <input class="inline-input" id="newObj" placeholder="Nouvel objectif pour tous les élèves..."/>
+        <button class="inline-btn" onclick="addObj()">Ajouter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MESSAGE -->
+  <div class="panel" id="panel-message">
+    <div class="section-header"><h2>💬 Message du coach</h2></div>
+    <div class="card">
+      <div class="card-title">✏️ Message de la semaine</div>
+      <div class="field"><label>Titre</label><input id="msgTitle" placeholder="Semaine du 24 février"/></div>
+      <div class="field"><label>Message</label><textarea id="msgBody" style="min-height:120px;" placeholder="Beau travail la semaine dernière..."></textarea></div>
+      <div class="field"><label>Call to action</label><input id="msgCta" placeholder="Objectif : finir les exos avant samedi 💪"/></div>
+      <button class="add-btn" onclick="saveMsg()">✅ Sauvegarder</button>
+      <div style="margin-top:16px;padding:14px;background:var(--surface2);border-radius:10px;border:1px solid var(--border);">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;font-weight:600;letter-spacing:.5px;margin-bottom:8px;">Aperçu</div>
+        <div id="msgPreview" style="font-size:14px;line-height:1.7;color:var(--muted);">—</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+
+<script>
+// ═══ AUTH
+const ADMIN_PASS='admin2025';
+if(sessionStorage.getItem('adminOk')!=='yes'){
+  const p=prompt('🔒 Mot de passe administrateur :');
+  if(p!==ADMIN_PASS){document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#aaa;font-size:18px;">Accès refusé.</div>';}
+  else sessionStorage.setItem('adminOk','yes');
+}
+
+// ═══ GITHUB CONFIG (stored locally — never shared)
+function getCfg(){ return JSON.parse(localStorage.getItem('gh_config')||'{}'); }
+function saveCfg(c){ localStorage.setItem('gh_config',JSON.stringify(c)); }
+
+// ═══ STATE (loaded from GitHub data.json)
+let state = null;
+
+const DEFAULT_STATE = {
+  students:[{name:'Thomas',email:'thomas@email.com',pass:'maths2024',color:'linear-gradient(135deg,#6C3FC5,#8B62D9)'}],
+  agendaUrl:'',meetTitle:'',meetDate:'',meetUrl:'',
+  weekPlan:[{day:'LUN',tasks:[]},{day:'MAR',tasks:[{text:'Vidéo du cours',type:'cours'}]},{day:'MER',tasks:[{text:'Exercices niv.1',type:'exo'}]},{day:'JEU',tasks:[{text:'Révision fiche',type:'revise'}]},{day:'VEN',tasks:[{text:'Exercices niv.2',type:'exo'}]},{day:'SAM',tasks:[{text:'Cours 14h-15h30',type:'cours'}]},{day:'DIM',tasks:[]}],
+  chapters:[
+    {num:1,name:'Suites — Raisonnement par récurrence',meta:'Fiche · Vidéo · Exercices',status:'done',fiche:'',video:'',exercices:''},
+    {num:2,name:'Suites — Limites',meta:'Fiche · Vidéo · Exercices',status:'current',fiche:'',video:'',exercices:''},
+    {num:3,name:'Suites — Opérations sur les limites',meta:'Fiche · Vidéo · Exercices',status:'locked',fiche:'',video:'',exercices:''},
+    {num:4,name:'Dérivation',meta:'Fiche · Vidéo · Exercices',status:'done',fiche:'',video:'',exercices:''},
+    {num:5,name:'Fonction exponentielle',meta:'Fiche · Vidéo · Exercices',status:'locked',fiche:'',video:'',exercices:''},
+    {num:6,name:'Fonctions trigonométriques',meta:'Fiche · Vidéo · Exercices',status:'locked',fiche:'',video:'',exercices:''},
+    {num:7,name:'Produit scalaire',meta:'Fiche · Vidéo · Exercices',status:'locked',fiche:'',video:'',exercices:''},
+    {num:8,name:'Géométrie repérée',meta:'Fiche · Vidéo · Exercices',status:'locked',fiche:'',video:'',exercices:''},
+    {num:9,name:'Probabilités conditionnelles',meta:'Fiche · Vidéo · Exercices',status:'done',fiche:'',video:'',exercices:''},
+    {num:10,name:'Variables aléatoires',meta:'Fiche · Vidéo · Exercices',status:'done',fiche:'',video:'',exercices:''},
+    {num:11,name:'Loi binomiale',meta:'Fiche · Vidéo · Exercices',status:'locked',fiche:'',video:'',exercices:''},
+    {num:12,name:'Algorithmique Python',meta:'Fiche · Vidéo · Exercices',status:'locked',fiche:'',video:'',exercices:''},
+  ],
+  replays:[],evals:[],
+  objectives:[{text:'Regarder la vidéo du chapitre en cours',done:false,source:'coach'},{text:'Lire la fiche méthode',done:false,source:'coach'},{text:'Faire les exercices niveau 1',done:false,source:'coach'}],
+  message:{title:'',body:'',cta:''}
+};
+
+// ═══ GITHUB API
+async function ghFetch(path, method='GET', body=null){
+  const cfg=getCfg();
+  if(!cfg.token||!cfg.user||!cfg.repo) throw new Error('GitHub non configuré');
+  const url=`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${path}`;
+  const opts={method,headers:{'Authorization':`token ${cfg.token}`,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'}};
+  if(body) opts.body=JSON.stringify(body);
+  const r=await fetch(url,opts);
+  if(!r.ok){const e=await r.json();throw new Error(e.message||'GitHub error '+r.status);}
+  return r.json();
+}
+
+async function loadFromGithub(){
+  try{
+    const res=await ghFetch('data.json');
+    const raw=atob(res.content.replace(/\n/g,'')); const content=JSON.parse(decodeURIComponent(escape(raw)));
+    // store sha for updates
+    localStorage.setItem('gh_data_sha', res.sha);
+    return content;
+  } catch(e){
+    if(e.message&&e.message.includes('Not Found')) return null; // file doesn't exist yet
+    throw e;
+  }
+}
+
+async function saveToGithub(data){
+  const cfg=getCfg();
+  if(!cfg.token||!cfg.user||!cfg.repo) throw new Error('GitHub non configuré — va dans Configuration d\'abord');
+  const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+  const sha=localStorage.getItem('gh_data_sha');
+  const body={message:'MathExcel admin update',content};
+  if(sha) body.sha=sha;
+  const res=await ghFetch('data.json','PUT',body);
+  if(res.content&&res.content.sha) localStorage.setItem('gh_data_sha',res.content.sha);
+}
+
+// ═══ INIT
+async function init(){
+  const cfg=getCfg();
+  if(cfg.user) document.getElementById('ghUser').value=cfg.user;
+  if(cfg.repo) document.getElementById('ghRepo').value=cfg.repo;
+  if(cfg.token) document.getElementById('ghToken').value=cfg.token;
+
+  if(!cfg.token||!cfg.user||!cfg.repo){
+    state=DEFAULT_STATE;
+    toast('⚠️ Configure GitHub pour synchroniser les données','var(--gold)');
+    return;
+  }
+
+  setBtnLoading(true,'Chargement...');
+  try{
+    const data=await loadFromGithub();
+    state=data||DEFAULT_STATE;
+    toast('✓ Données chargées depuis GitHub','var(--green)');
+  }catch(e){
+    state=DEFAULT_STATE;
+    toast('⚠️ Erreur GitHub : '+e.message,'var(--red)');
+  }
+  setBtnLoading(false);
+}
+
+function setBtnLoading(loading, text=''){
+  const btn=document.getElementById('saveBtn');
+  btn.disabled=loading;
+  if(loading) btn.innerHTML=`⏳ ${text}`;
+  else btn.innerHTML='💾 Sauvegarder & Publier';
+}
+
+// ═══ TOAST
+let tt;
+function toast(msg,c='var(--green)'){
+  const t=document.getElementById('toast'); t.style.borderColor=c; t.style.color=c;
+  document.getElementById('toastMsg').textContent=msg; t.classList.add('show');
+  clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ═══ PANEL NAV
+const META={config:{title:'Configuration',sub:'Connecte ton repo GitHub'},eleves:{title:'Gestion des élèves',sub:'Ajoute, modifie ou supprime'},agenda:{title:'Agenda & Meet',sub:'Calendrier et prochaine séance'},planning:{title:'Planning semaine',sub:'Tâches jour par jour'},cours:{title:'Cours & ressources',sub:'Chapitres, fiches, vidéos, exercices'},replays:{title:'Replays',sub:'Enregistrements des séances'},evals:{title:'Évaluations',sub:'Notes et retours coach'},objectifs:{title:'Objectifs',sub:'Tâches affichées aux élèves'},message:{title:'Message du coach',sub:'Affiché dans l\'espace objectifs'}};
+function sp(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  if(el) el.classList.add('active');
+  document.getElementById('pTitle').textContent=META[id].title;
+  document.getElementById('pSub').textContent=META[id].sub;
+  const renders={eleves:renderStudents,agenda:renderAgenda,planning:renderPlanning,cours:renderCours,replays:renderReplays,evals:renderEvals,objectifs:renderObjectifs,message:renderMessage};
+  if(renders[id]) renders[id]();
+}
+
+// ═══ SAVE ALL
+async function saveAll(){
+  if(!state){toast('⚠️ Pas de données chargées','var(--red)');return;}
+  // collect current field values
+  collectFormValues();
+  setBtnLoading(true,'Publication...');
+  try{
+    await saveToGithub(state);
+    toast('✓ Publié sur GitHub — visible par tous les élèves !','var(--green)');
+  }catch(e){
+    toast('❌ Erreur : '+e.message,'var(--red)');
+  }
+  setBtnLoading(false);
+}
+
+function collectFormValues(){
+  // Agenda & Meet
+  ['agendaUrl','meetTitle','meetDate','meetUrl'].forEach(id=>{
+    const el=document.getElementById(id); if(el) state[id]=el.value;
+  });
+  // Message
+  ['msgTitle','msgBody','msgCta'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){const k=id.replace('msg','').toLowerCase(); state.message[k==='title'?'title':k==='body'?'body':'cta']=el.value;}
+  });
+}
+
+// ═══ CONFIG
+async function testGithub(){
+  const user=document.getElementById('ghUser').value.trim();
+  const repo=document.getElementById('ghRepo').value.trim();
+  const token=document.getElementById('ghToken').value.trim();
+  if(!user||!repo||!token){toast('⚠️ Remplis tous les champs','var(--gold)');return;}
+  const st=document.getElementById('ghStatus');
+  st.style.display='block'; st.style.background='rgba(124,92,252,.1)'; st.style.border='1px solid rgba(124,92,252,.3)'; st.style.color='var(--accent2)';
+  st.textContent='🔍 Test en cours...';
+  try{
+    const r=await fetch(`https://api.github.com/repos/${user}/${repo}`,{headers:{'Authorization':`token ${token}`}});
+    const d=await r.json();
+    if(r.ok){
+      st.style.background='rgba(52,211,153,.1)'; st.style.border='1px solid rgba(52,211,153,.3)'; st.style.color='var(--green)';
+      st.textContent=`✓ Connexion réussie ! Repo : ${d.full_name}`;
+    } else {
+      st.style.background='rgba(248,113,113,.1)'; st.style.border='1px solid rgba(248,113,113,.3)'; st.style.color='var(--red)';
+      st.textContent='❌ Erreur : '+d.message;
+    }
+  }catch(e){
+    st.style.background='rgba(248,113,113,.1)'; st.style.color='var(--red)';
+    st.textContent='❌ Erreur réseau : '+e.message;
+  }
+}
+
+function saveConfig(){
+  const user=document.getElementById('ghUser').value.trim();
+  const repo=document.getElementById('ghRepo').value.trim();
+  const token=document.getElementById('ghToken').value.trim();
+  if(!user||!repo||!token){toast('⚠️ Remplis tous les champs','var(--gold)');return;}
+  saveCfg({user,repo,token});
+  toast('✓ Config sauvegardée — rechargement...','var(--green)');
+  setTimeout(()=>location.reload(),1200);
+}
+
+// ═══ STUDENTS
+function renderStudents(){
+  const g=document.getElementById('studentGrid'); g.innerHTML='';
+  (state.students||[]).forEach((s,i)=>{
+    const c=document.createElement('div'); c.className='s-card';
+    c.innerHTML=`<button class="s-del">✕</button><div class="s-top"><div class="s-av" style="background:${s.color}">${s.name[0]}</div><div><div class="s-name">${s.name}</div><div class="s-email">${s.email}</div></div></div>
+    <div class="s-field"><label>Prénom</label><input value="${s.name}" /></div>
+    <div class="s-field"><label>Email</label><input value="${s.email}" /></div>
+    <div class="s-field"><label>Pass</label><input value="${s.pass}" /></div>`;
+    c.querySelector('.s-del').onclick=()=>{if(confirm(`Supprimer ${s.name} ?`)){state.students.splice(i,1);renderStudents();}};
+    c.querySelectorAll('.s-field input').forEach((inp,fi)=>{
+      inp.oninput=()=>{state.students[i][['name','email','pass'][fi]]=inp.value;};
+    });
+    g.appendChild(c);
+  });
+}
+function addStudent(){
+  const name=document.getElementById('nName').value.trim(),email=document.getElementById('nEmail').value.trim(),pass=document.getElementById('nPass').value.trim(),color=document.getElementById('nColor').value;
+  if(!name||!email||!pass){toast('⚠️ Remplis tous les champs','var(--gold)');return;}
+  state.students.push({name,email,pass,color}); renderStudents();
+  ['nName','nEmail','nPass'].forEach(id=>document.getElementById(id).value='');
+  toast('✓ Élève ajouté ! Clique Sauvegarder pour publier.');
+}
+
+// ═══ AGENDA
+function renderAgenda(){
+  document.getElementById('agendaUrl').value=state.agendaUrl||'';
+  document.getElementById('meetTitle').value=state.meetTitle||'';
+  document.getElementById('meetDate').value=state.meetDate||'';
+  document.getElementById('meetUrl').value=state.meetUrl||'';
+  updateAgendaPreview(); updateMeetStatus();
+  ['meetTitle','meetDate','meetUrl'].forEach(id=>{document.getElementById(id).oninput=function(){state[id]=this.value;updateMeetStatus();};});
+}
+function updateAgendaPreview(){
+  const url=document.getElementById('agendaUrl').value.trim(); state.agendaUrl=url;
+  const p=document.getElementById('agendaPreview');
+  p.innerHTML=url?`<iframe src="${url}" frameborder="0" scrolling="no" style="width:100%;height:350px;border:0;"></iframe>`:`<div class="agenda-ph"><span style="font-size:36px">📅</span><span>Colle l'URL pour voir un aperçu</span></div>`;
+}
+function updateMeetStatus(){
+  const url=document.getElementById('meetUrl')?.value.trim()||'',title=document.getElementById('meetTitle')?.value.trim()||'';
+  const dot=document.getElementById('meetDot'),txt=document.getElementById('meetTxt');
+  if(url&&title){dot.classList.add('on');txt.textContent=`✓ ${title}`;txt.style.color='var(--green)';}
+  else{dot.classList.remove('on');txt.textContent='Aucune séance configurée';txt.style.color='var(--muted)';}
+}
+
+// ═══ PLANNING
+function renderPlanning(){
+  const g=document.getElementById('weekGrid'); g.innerHTML='';
+  state.weekPlan.forEach((day,di)=>{
+    const row=document.createElement('div'); row.className='wg-row';
+    const label=document.createElement('div'); label.className='wg-day'; label.textContent=day.day;
+    const tasks=document.createElement('div'); tasks.className='wg-tasks';
+    function refresh(){
+      tasks.innerHTML='';
+      day.tasks.forEach((t,ti)=>{
+        const chip=document.createElement('span'); chip.className=`task-chip ${t.type}`;
+        chip.innerHTML=`${t.text}<button class="chip-del">✕</button>`;
+        chip.querySelector('.chip-del').onclick=()=>{day.tasks.splice(ti,1);refresh();};
+        tasks.appendChild(chip);
+      });
+      const ar=document.createElement('div'); ar.className='add-task-row';
+      ar.innerHTML=`<input class="at-input" placeholder="Ajouter..."/><select class="at-select"><option value="cours">📘 Cours</option><option value="exo">📝 Exo</option><option value="revise">🔁 Révision</option></select><button class="at-btn">+</button>`;
+      ar.querySelector('.at-btn').onclick=()=>{const v=ar.querySelector('input').value.trim();if(!v)return;day.tasks.push({text:v,type:ar.querySelector('select').value});refresh();};
+      tasks.appendChild(ar);
+    }
+    refresh(); row.appendChild(label); row.appendChild(tasks); g.appendChild(row);
+  });
+}
+
+// ═══ COURS — clé du fix : event listeners directs, pas inline
+function renderCours(){
+  const list=document.getElementById('chapList'); list.innerHTML='';
+  state.chapters.forEach((ch,i)=>{
+    const el=document.createElement('div'); el.className='chap-item';
+    el.innerHTML=`
+      <div class="chap-num">${ch.num}</div>
+      <div class="chap-body">
+        <div class="chap-name-row">
+          <input class="chap-name-input" value="${ch.name||''}" placeholder="Nom du chapitre"/>
+          <select class="chap-status-sel">
+            <option value="locked" ${ch.status==='locked'?'selected':''}>🔒 À venir</option>
+            <option value="current" ${ch.status==='current'?'selected':''}>📖 En cours</option>
+            <option value="done" ${ch.status==='done'?'selected':''}>✅ Terminé</option>
+          </select>
+          <button class="del-btn">🗑</button>
+        </div>
+        <div class="chap-links">
+          <div class="clf"><label>📄 Fiche</label><input value="${ch.fiche||''}" placeholder="URL Google Drive / PDF..."/></div>
+          <div class="clf"><label>🎬 Vidéo</label><input value="${ch.video||''}" placeholder="URL YouTube..."/></div>
+          <div class="clf"><label>📝 Exos</label><input value="${ch.exercices||''}" placeholder="URL Google Doc..."/></div>
+        </div>
+      </div>`;
+
+    // Direct event listeners — fix du bug
+    el.querySelector('.chap-name-input').addEventListener('input',function(){ state.chapters[i].name=this.value; });
+    el.querySelector('.chap-status-sel').addEventListener('change',function(){ state.chapters[i].status=this.value; });
+    el.querySelector('.del-btn').addEventListener('click',()=>{ if(confirm('Supprimer ?')){state.chapters.splice(i,1);renderCours();} });
+    const linkInputs=el.querySelectorAll('.clf input');
+    linkInputs[0].addEventListener('input',function(){ state.chapters[i].fiche=this.value; });
+    linkInputs[1].addEventListener('input',function(){ state.chapters[i].video=this.value; });
+    linkInputs[2].addEventListener('input',function(){ state.chapters[i].exercices=this.value; });
+
+    list.appendChild(el);
+  });
+}
+function addChapter(){
+  const num=state.chapters.length+1;
+  state.chapters.push({num,name:`Chapitre ${num}`,meta:'Fiche · Vidéo · Exercices',status:'locked',fiche:'',video:'',exercices:''});
+  renderCours(); toast('✓ Chapitre ajouté. Clique Sauvegarder pour publier.');
+}
+
+// ═══ REPLAYS
+function renderReplays(){
+  const list=document.getElementById('replayList'); list.innerHTML='';
+  const empty=document.getElementById('noReplays');
+  if(!state.replays.length){empty.style.display='block';return;} empty.style.display='none';
+  state.replays.forEach((r,i)=>{
+    const el=document.createElement('div'); el.className='list-item';
+    el.innerHTML=`<div class="li-icon">🎥</div><div class="li-info"><div class="li-name">${r.title}</div><div class="li-meta">${r.date} · ${r.duration}</div></div><button class="del-btn">🗑</button>`;
+    el.querySelector('.del-btn').onclick=()=>{state.replays.splice(i,1);renderReplays();};
+    list.appendChild(el);
+  });
+}
+function addReplay(){
+  const title=document.getElementById('rTitle').value.trim(),date=document.getElementById('rDate').value.trim(),duration=document.getElementById('rDur').value.trim()||'?',url=document.getElementById('rUrl').value.trim()||'#';
+  if(!title||!date){toast('⚠️ Titre et date requis','var(--gold)');return;}
+  state.replays.unshift({title,date,duration,url}); renderReplays();
+  ['rTitle','rDate','rDur','rUrl'].forEach(id=>document.getElementById(id).value='');
+  toast('✓ Ajouté. Clique Sauvegarder pour publier.');
+}
+
+// ═══ EVALS
+function renderEvals(){
+  const list=document.getElementById('evalList'); list.innerHTML='';
+  const empty=document.getElementById('noEvals');
+  if(!state.evals.length){empty.style.display='block';return;} empty.style.display='none';
+  state.evals.forEach((e,i)=>{
+    const el=document.createElement('div'); el.className='list-item';
+    el.innerHTML=`<div class="li-icon">📊</div><div class="li-info"><div class="li-name">${e.name}</div><div class="li-meta">${e.date} · ${e.note}/${e.max}</div></div><span class="badge b-${e.noteClass==='good'?'done':e.noteClass==='ok'?'ok':''}">${e.note}/${e.max}</span><button class="del-btn">🗑</button>`;
+    el.querySelector('.del-btn').onclick=()=>{state.evals.splice(i,1);renderEvals();};
+    list.appendChild(el);
+  });
+}
+function addEval(){
+  const name=document.getElementById('eName').value.trim(),date=document.getElementById('eDate').value.trim(),note=parseFloat(document.getElementById('eNote').value),max=parseFloat(document.getElementById('eMax').value)||20,noteClass=document.getElementById('eClass').value,comment=document.getElementById('eComment').value.trim(),tagsRaw=document.getElementById('eTags').value.trim();
+  if(!name||!date||isNaN(note)){toast('⚠️ Nom, date et note requis','var(--gold)');return;}
+  state.evals.unshift({name,date,note,max,noteClass,comment,tags:tagsRaw?tagsRaw.split(',').map(t=>t.trim()):[]});
+  renderEvals(); ['eName','eDate','eNote','eComment','eTags'].forEach(id=>document.getElementById(id).value=''); document.getElementById('eMax').value='20';
+  toast('✓ Ajouté. Clique Sauvegarder pour publier.');
+}
+
+// ═══ OBJECTIFS
+function renderObjectifs(){
+  const list=document.getElementById('objList'); list.innerHTML='';
+  if(!state.objectives.length){list.innerHTML='<div style="text-align:center;padding:20px;color:var(--muted);font-size:14px;">Aucun objectif.</div>';return;}
+  state.objectives.forEach((o,i)=>{
+    const el=document.createElement('div'); el.className='obj-item';
+    el.innerHTML=`<div class="obj-dot"></div><span style="flex:1">${o.text}</span><button class="del-btn">🗑</button>`;
+    el.querySelector('.del-btn').onclick=()=>{state.objectives.splice(i,1);renderObjectifs();};
+    list.appendChild(el);
+  });
+}
+function addObj(){
+  const text=document.getElementById('newObj').value.trim(); if(!text) return;
+  state.objectives.push({text,done:false,source:'coach'}); renderObjectifs(); document.getElementById('newObj').value='';
+  toast('✓ Ajouté. Clique Sauvegarder pour publier.');
+}
+
+// ═══ MESSAGE
+function renderMessage(){
+  document.getElementById('msgTitle').value=state.message.title||'';
+  document.getElementById('msgBody').value=state.message.body||'';
+  document.getElementById('msgCta').value=state.message.cta||'';
+  updatePreview();
+  ['msgTitle','msgBody','msgCta'].forEach(id=>document.getElementById(id).addEventListener('input',updatePreview));
+}
+function updatePreview(){
+  const t=document.getElementById('msgTitle').value||'—',b=document.getElementById('msgBody').value||'—',c=document.getElementById('msgCta').value;
+  document.getElementById('msgPreview').innerHTML=`<strong style="color:var(--text)">${t}</strong><br/><br/>${b}${c?`<br/><br/><em style="color:var(--accent2)">${c}</em>`:''}`;
+}
+function saveMsg(){
+  state.message={title:document.getElementById('msgTitle').value,body:document.getElementById('msgBody').value,cta:document.getElementById('msgCta').value};
+  toast('✓ Message mis à jour. Clique Sauvegarder pour publier.');
+}
+
+// ═══ INIT
+init();
+</script>
+</body>
+</html>
