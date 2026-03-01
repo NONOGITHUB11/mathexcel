@@ -212,5 +212,125 @@
     "body": "",
     "cta": ""
   },
-  "studentData": {}
+  "studentData": {
+    "thomas@email.com": {
+      "weekPlan": [
+        {
+          "day": "LUN",
+          "tasks": [
+            {
+              "text": "cours",
+              "type": "cours"
+            }
+          ]
+        },
+        {
+          "day": "MAR",
+          "tasks": []
+        },
+        {
+          "day": "MER",
+          "tasks": []
+        },
+        {
+          "day": "JEU",
+          "tasks": []
+        },
+        {
+          "day": "VEN",
+          "tasks": []
+        },
+        {
+          "day": "SAM",
+          "tasks": []
+        },
+        {
+          "day": "DIM",
+          "tasks": []
+        }
+      ],
+      "objectives": [],
+      "evals": [],
+      "meetTitle": "",
+      "meetDate": "",
+      "meetUrl": "",
+      "agendaUrl": ""
+    },
+    "lea@email.com": {
+      "weekPlan": [
+        {
+          "day": "LUN",
+          "tasks": []
+        },
+        {
+          "day": "MAR",
+          "tasks": []
+        },
+        {
+          "day": "MER",
+          "tasks": []
+        },
+        {
+          "day": "JEU",
+          "tasks": []
+        },
+        {
+          "day": "VEN",
+          "tasks": []
+        },
+        {
+          "day": "SAM",
+          "tasks": []
+        },
+        {
+          "day": "DIM",
+          "tasks": []
+        }
+      ],
+      "objectives": [],
+      "evals": [],
+      "meetTitle": "",
+      "meetDate": "",
+      "meetUrl": "",
+      "agendaUrl": ""
+    },
+    "yanick@email.com": {
+      "weekPlan": [
+        {
+          "day": "LUN",
+          "tasks": []
+        },
+        {
+          "day": "MAR",
+          "tasks": []
+        },
+        {
+          "day": "MER",
+          "tasks": []
+        },
+        {
+          "day": "JEU",
+          "tasks": []
+        },
+        {
+          "day": "VEN",
+          "tasks": []
+        },
+        {
+          "day": "SAM",
+          "tasks": []
+        },
+        {
+          "day": "DIM",
+          "tasks": []
+        }
+      ],
+      "objectives": [],
+      "evals": [],
+      "meetTitle": "",
+      "meetDate": "",
+      "meetUrl": "",
+      "agendaUrl": ""
+    }
+  }
 }
