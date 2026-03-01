@@ -11,6 +11,12 @@
       "email": "lea@email.com",
       "pass": "maths2024",
       "color": "linear-gradient(135deg,#F5C842,#FF9800)"
+    },
+    {
+      "name": "Yanick",
+      "email": "Yanick.guiraud",
+      "pass": "yanick1",
+      "color": "linear-gradient(135deg,#F5C842,#FF9800)"
     }
   ],
   "agendaUrl": "",
