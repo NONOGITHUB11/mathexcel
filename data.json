@@ -1,41 +1,209 @@
 {
   "students": [
-    {"name":"Thomas","email":"thomas@email.com","pass":"maths2024","color":"linear-gradient(135deg,#6C3FC5,#8B62D9)"},
-    {"name":"Léa","email":"lea@email.com","pass":"maths2024","color":"linear-gradient(135deg,#F5C842,#FF9800)"}
+    {
+      "name": "Thomas",
+      "email": "thomas@email.com",
+      "pass": "maths2024",
+      "color": "linear-gradient(135deg,#6C3FC5,#8B62D9)"
+    },
+    {
+      "name": "LÃ©a",
+      "email": "lea@email.com",
+      "pass": "maths2024",
+      "color": "linear-gradient(135deg,#F5C842,#FF9800)"
+    }
   ],
   "agendaUrl": "",
   "meetTitle": "",
   "meetDate": "",
   "meetUrl": "",
   "weekPlan": [
-    {"day":"LUN","tasks":[]},
-    {"day":"MAR","tasks":[{"text":"Vidéo du cours","type":"cours"}]},
-    {"day":"MER","tasks":[{"text":"Exercices niv.1","type":"exo"}]},
-    {"day":"JEU","tasks":[{"text":"Révision fiche","type":"revise"}]},
-    {"day":"VEN","tasks":[{"text":"Exercices niv.2","type":"exo"}]},
-    {"day":"SAM","tasks":[{"text":"Cours 14h-15h30","type":"cours"}]},
-    {"day":"DIM","tasks":[]}
+    {
+      "day": "LUN",
+      "tasks": []
+    },
+    {
+      "day": "MAR",
+      "tasks": [
+        {
+          "text": "VidÃ©o du cours",
+          "type": "cours"
+        }
+      ]
+    },
+    {
+      "day": "MER",
+      "tasks": [
+        {
+          "text": "Exercices niv.1",
+          "type": "exo"
+        }
+      ]
+    },
+    {
+      "day": "JEU",
+      "tasks": [
+        {
+          "text": "RÃ©vision fiche",
+          "type": "revise"
+        }
+      ]
+    },
+    {
+      "day": "VEN",
+      "tasks": [
+        {
+          "text": "Exercices niv.2",
+          "type": "exo"
+        }
+      ]
+    },
+    {
+      "day": "SAM",
+      "tasks": [
+        {
+          "text": "Cours 14h-15h30",
+          "type": "cours"
+        }
+      ]
+    },
+    {
+      "day": "DIM",
+      "tasks": []
+    }
   ],
   "chapters": [
-    {"num":1,"name":"Suites — Raisonnement par récurrence","meta":"Fiche · Vidéo · Exercices","status":"done","fiche":"","video":"","exercices":""},
-    {"num":2,"name":"Suites — Limites","meta":"Fiche · Vidéo · Exercices","status":"current","fiche":"","video":"","exercices":""},
-    {"num":3,"name":"Suites — Opérations sur les limites","meta":"Fiche · Vidéo · Exercices","status":"locked","fiche":"","video":"","exercices":""},
-    {"num":4,"name":"Dérivation","meta":"Fiche · Vidéo · Exercices","status":"done","fiche":"","video":"","exercices":""},
-    {"num":5,"name":"Fonction exponentielle","meta":"Fiche · Vidéo · Exercices","status":"locked","fiche":"","video":"","exercices":""},
-    {"num":6,"name":"Fonctions trigonométriques","meta":"Fiche · Vidéo · Exercices","status":"locked","fiche":"","video":"","exercices":""},
-    {"num":7,"name":"Produit scalaire","meta":"Fiche · Vidéo · Exercices","status":"locked","fiche":"","video":"","exercices":""},
-    {"num":8,"name":"Géométrie repérée","meta":"Fiche · Vidéo · Exercices","status":"locked","fiche":"","video":"","exercices":""},
-    {"num":9,"name":"Probabilités conditionnelles","meta":"Fiche · Vidéo · Exercices","status":"done","fiche":"","video":"","exercices":""},
-    {"num":10,"name":"Variables aléatoires","meta":"Fiche · Vidéo · Exercices","status":"done","fiche":"","video":"","exercices":""},
-    {"num":11,"name":"Loi binomiale","meta":"Fiche · Vidéo · Exercices","status":"locked","fiche":"","video":"","exercices":""},
-    {"num":12,"name":"Algorithmique Python","meta":"Fiche · Vidéo · Exercices","status":"locked","fiche":"","video":"","exercices":""}
+    {
+      "num": 1,
+      "name": "Suites â Raisonnement par rÃ©currence",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "done",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 2,
+      "name": "Suites â Limites",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "current",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 3,
+      "name": "Suites â OpÃ©rations sur les limites",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "locked",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 4,
+      "name": "DÃ©rivation",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "done",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 5,
+      "name": "Fonction exponentielle",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "locked",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 6,
+      "name": "Fonctions trigonomÃ©triques",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "locked",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 7,
+      "name": "Produit scalaire",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "locked",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 8,
+      "name": "GÃ©omÃ©trie repÃ©rÃ©e",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "locked",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 9,
+      "name": "ProbabilitÃ©s conditionnelles",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "done",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 10,
+      "name": "Variables alÃ©atoires",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "done",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 11,
+      "name": "Loi binomiale",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "locked",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    },
+    {
+      "num": 12,
+      "name": "Algorithmique Python",
+      "meta": "Fiche Â· VidÃ©o Â· Exercices",
+      "status": "locked",
+      "fiche": "",
+      "video": "",
+      "exercices": ""
+    }
   ],
   "replays": [],
   "evals": [],
   "objectives": [
-    {"text":"Regarder la vidéo du chapitre en cours","done":false,"source":"coach"},
-    {"text":"Lire la fiche méthode","done":false,"source":"coach"},
-    {"text":"Faire les exercices niveau 1","done":false,"source":"coach"}
+    {
+      "text": "Regarder la vidÃ©o du chapitre en cours",
+      "done": false,
+      "source": "coach"
+    },
+    {
+      "text": "Lire la fiche mÃ©thode",
+      "done": false,
+      "source": "coach"
+    },
+    {
+      "text": "Faire les exercices niveau 1",
+      "done": false,
+      "source": "coach"
+    }
   ],
-  "message": {"title":"","body":"","cta":""}
+  "message": {
+    "title": "",
+    "body": "",
+    "cta": ""
+  }
 }
