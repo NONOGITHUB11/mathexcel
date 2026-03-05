@@ -258,7 +258,13 @@
           "tasks": []
         }
       ],
-      "objectives": [],
+      "objectives": [
+        {
+          "text": "reussir",
+          "done": false,
+          "source": "coach"
+        }
+      ],
       "evals": [],
       "meetTitle": "coucou",
       "meetDate": "Dimanche 8 mar · 14h00 – 15h30",
