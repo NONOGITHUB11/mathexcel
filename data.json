@@ -261,7 +261,7 @@
       "objectives": [
         {
           "text": "fait le",
-          "done": false,
+          "done": true,
           "source": "coach"
         }
       ],
