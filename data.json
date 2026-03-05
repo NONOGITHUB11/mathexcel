@@ -188,7 +188,14 @@
       "exercices": ""
     }
   ],
-  "replays": [],
+  "replays": [
+    {
+      "title": "seance 1",
+      "date": "2 mars 2025",
+      "duration": "1h20",
+      "url": "https://www.youtube.com/watch?v=MJv7_pkFcdA&t=1s"
+    }
+  ],
   "evals": [],
   "objectives": [
     {
