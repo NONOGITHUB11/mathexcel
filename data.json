@@ -242,7 +242,12 @@
         },
         {
           "day": "VEN",
-          "tasks": []
+          "tasks": [
+            {
+              "text": "présence obligatoire",
+              "type": "cours"
+            }
+          ]
         },
         {
           "day": "SAM",
