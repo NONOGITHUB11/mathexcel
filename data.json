@@ -255,11 +255,11 @@
       ],
       "objectives": [],
       "evals": [],
-      "meetTitle": "caca avec joal",
-      "meetDate": "Lundi 2 mar · 14h00 – 15h30",
-      "meetUrl": "",
+      "meetTitle": "bababh",
+      "meetDate": "Vendredi 6 mar · 14h00 – 15h30",
+      "meetUrl": "https://meet.google.com/hrm-icfz-jwc",
       "agendaUrl": "",
-      "meetDatetime": "2026-03-02T14:00",
+      "meetDatetime": "2026-03-06T14:00",
       "meetTimeEnd": "15:30"
     },
     "lea@email.com": {
@@ -335,8 +335,10 @@
       "evals": [],
       "meetTitle": "",
       "meetDate": "",
-      "meetUrl": "",
-      "agendaUrl": ""
+      "meetUrl": "https://meet.google.com/tex-wcui-itz",
+      "agendaUrl": "",
+      "meetDatetime": "",
+      "meetTimeEnd": "15:30"
     }
   },
   "categories": [
