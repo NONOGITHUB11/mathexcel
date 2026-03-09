@@ -80,7 +80,17 @@
       "status": "done",
       "fiche": "https://drive.google.com/file/d/1_VXL7SbW6WoW2KPJXeyfm-LEOqsPDagC/view?usp=sharing",
       "video": "https://youtu.be/qHF5kiDFkW8?si=pyuP19vqW9-S3_yj",
-      "exercices": ""
+      "exercices": "",
+      "fiches": [
+        {
+          "label": "Fiche 1",
+          "url": "https://drive.google.com/file/d/1YvaSciC0jNe090n9P5uu1SCjUs9a-kHX/view?usp=sharing"
+        },
+        {
+          "label": "Fiche 2",
+          "url": "https://drive.google.com/file/d/1_VXL7SbW6WoW2KPJXeyfm-LEOqsPDagC/view?usp=sharing"
+        }
+      ]
     },
     {
       "num": 2,
@@ -89,7 +99,8 @@
       "status": "current",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 3,
@@ -98,7 +109,8 @@
       "status": "locked",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 4,
@@ -107,7 +119,8 @@
       "status": "done",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 5,
@@ -116,7 +129,8 @@
       "status": "locked",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 6,
@@ -125,7 +139,8 @@
       "status": "locked",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 7,
@@ -134,7 +149,8 @@
       "status": "locked",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 8,
@@ -143,7 +159,8 @@
       "status": "locked",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 9,
@@ -152,7 +169,8 @@
       "status": "done",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 10,
@@ -161,7 +179,8 @@
       "status": "done",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 11,
@@ -170,7 +189,8 @@
       "status": "locked",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     },
     {
       "num": 12,
@@ -179,7 +199,8 @@
       "status": "locked",
       "fiche": "",
       "video": "",
-      "exercices": ""
+      "exercices": "",
+      "fiches": []
     }
   ],
   "replays": [],
